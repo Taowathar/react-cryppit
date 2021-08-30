@@ -52,3 +52,30 @@ code {
   list-style: none;
   justify-content: center;
 }
+
+.crypto-img {
+  max-width: 25px;
+  margin-right: 25px;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  border: 3px solid black;
+}
+
+.table-data-name {
+  display: flex;
+}
+
+span {
+  text-transform: uppercase;
+  margin-left: 25px;
+  text-align: right;
+}
