@@ -1,7 +1,20 @@
+import { useState } from "react";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+
 const Crypto = (crypto) => {
+  const [favorite, setfavorite] = useState(false);
+
+  const changeFavorite = () => {
+    setfavorite(!favorite);
+  };
+
   return (
     <tr>
-      <td></td>
+      <td>
+        <div className="favoriteButton" onClick={changeFavorite}>
+          {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
+        </div>
+      </td>
       <td>
         <div className="table-data-name">
           <img className="crypto-img" src={crypto.crypto.image} alt="logo" />
