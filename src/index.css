@@ -79,3 +79,8 @@ span {
   margin-left: 25px;
   text-align: right;
 }
+
+.favoriteButton {
+  color: green;
+  cursor: pointer;
+}
