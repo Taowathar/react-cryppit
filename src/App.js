@@ -9,7 +9,14 @@ function App() {
   let [currentPage, setCurrentPage] = useState(1);
 
   const pageCount = 100;
+  const cryptoPerPage = 20;
+  const cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoPerPage}&page=${currentPage}&sparkline=false`;
 
+  let cryptoList = null;
+  const [, fetchedCryptoList] = useAxiosGet(cryptoListURL, [currentPage]);
+  if (fetchedCryptoList) {
+    cryptoList = fetchedCryptoList;
+  }
 
   const handlePageChange = (selectedObject) => {
     setCurrentPage(selectedObject.selected);
@@ -23,6 +30,9 @@ function App() {
           exact
           render={() => (
             <>
+              <div className="table-container">
+                {cryptoList && <CryptoList cryptoList={cryptoList} />}
+              </div>
               <div className="pagination-field">
                 <ReactPaginate
                   pageCount={pageCount}
