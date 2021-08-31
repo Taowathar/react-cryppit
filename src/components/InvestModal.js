@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import InputNumber from 'react-input-number';
 import styled from 'styled-components';
@@ -39,11 +38,8 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
     useEffect(() => {
-        setIsOpen(modalOpen)
-        setUsdAmount(crypto.current_price);
-        setCryptoAmount(1);
-        console.log(crypto.current_price, cryptoAmount);
-    }, [modalOpen, crypto])
+       setIsOpen(modalOpen)
+    }, [modalOpen])
 
 
     function afterOpenModal() {
@@ -56,15 +52,19 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     }
 
     function setUsd(e) {
-        console.log(e);
         setUsdAmount(e)
         setCryptoAmount(+(e/crypto.current_price).toFixed(10))
     }
 
     function setCrypto(e) {
-        console.log(e);
         setCryptoAmount(e)
         setUsdAmount(+(e*crypto.current_price).toFixed(2))
+    }
+
+    function buy(e) {
+        e.preventDefault();
+        console.log(e.target[0].value);
+        console.log(e.target[1].value);
     }
 
     return (
@@ -77,18 +77,18 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
       >
         <h2 style={{textAlign: 'center', fontSize: '30px'}} ref={(_subtitle) => (subtitle = _subtitle)}>Buy {crypto.name}</h2>
         
-        <form>
+        <form name="investForm" onSubmit={buy}>
             <div className="currency-input" currency="USD">
           <InputNumber style={{fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd}/>
           </div>
           <div className="currency-input" currency={crypto.symbol}>
           <InputNumber style={{fontSize: '16px', width: '150px'}} value={cryptoAmount} onChange={setCrypto}/>
           </div>
-        </form>
         <div style={{marginTop: '20px'}}>
-        <Button style={{marginLeft: '70px'}}>Buy</Button>
+        <Button htmlFor="investForm" type="submit" style={{marginLeft: '70px'}}>Buy</Button>
         <Button style={{float: 'right', marginRight: '70px'}} onClick={closeModal}>Cancel</Button>
         </div>
+        </form>
       </Modal>
     )
 }
