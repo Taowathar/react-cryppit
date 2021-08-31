@@ -8,7 +8,7 @@ import CryptoList from "./components/CryptoList";
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
 
-  const pageCount = 100;
+  const pageCount = 459;
   const cryptoPerPage = 20;
   const cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoPerPage}&page=${currentPage}&sparkline=false`;
 
@@ -19,7 +19,7 @@ function App() {
   }
 
   const handlePageChange = (selectedObject) => {
-    setCurrentPage(selectedObject.selected);
+    setCurrentPage(selectedObject.selected + 1);
   };
 
   return (
@@ -35,6 +35,7 @@ function App() {
               </div>
               <div className="pagination-field">
                 <ReactPaginate
+                  initialPage={0}
                   pageCount={pageCount}
                   pageRange={2}
                   marginPagesDisplayed={2}
