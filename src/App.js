@@ -1,10 +1,11 @@
 import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
 import Header from "./components/Header";
+import Home from "./components/Home";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -27,33 +28,46 @@ function App() {
     <Router>
       <div className="App">
         <Header></Header>
-        <Route
-          path="/cryptolist"
-          exact
-          render={() => (
-            <>
-              <div className="table-container">
-                {cryptoList && <CryptoList cryptoList={cryptoList} />}
-              </div>
-              <div className="pagination-field">
-                <ReactPaginate
-                  initialPage={0}
-                  pageCount={pageCount}
-                  pageRange={2}
-                  marginPagesDisplayed={2}
-                  onPageChange={handlePageChange}
-                  containerClassName={"pagination-field"}
-                  previousLinkClassName={"page"}
-                  breakClassName={"page"}
-                  nextLinkClassName={"page"}
-                  pageClassName={"page"}
-                  disabledClassNae={"disabled"}
-                  activeClassName={"active"}
-                />
-              </div>
-            </>
-          )}
-        />
+
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={() => (
+              <>
+                <Home></Home>
+              </>
+            )}
+          />
+
+          <Route
+            path="/cryptolist"
+            exact
+            render={() => (
+              <>
+                <div className="table-container">
+                  {cryptoList && <CryptoList cryptoList={cryptoList} />}
+                </div>
+                <div className="pagination-field">
+                  <ReactPaginate
+                    initialPage={0}
+                    pageCount={pageCount}
+                    pageRange={2}
+                    marginPagesDisplayed={2}
+                    onPageChange={handlePageChange}
+                    containerClassName={"pagination-field"}
+                    previousLinkClassName={"page"}
+                    breakClassName={"page"}
+                    nextLinkClassName={"page"}
+                    pageClassName={"page"}
+                    disabledClassNae={"disabled"}
+                    activeClassName={"active"}
+                  />
+                </div>
+              </>
+            )}
+          />
+        </Switch>
       </div>
     </Router>
   );

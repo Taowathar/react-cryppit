@@ -1,5 +1,11 @@
+import TodayCoin from "./TodayCoin";
+
 const Home = () => {
-  return <div></div>;
+  return (
+    <div>
+      <TodayCoin></TodayCoin>
+    </div>
+  );
 };
 
 export default Home;
