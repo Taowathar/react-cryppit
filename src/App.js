@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
+import Header from "./components/Header";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -25,8 +26,9 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Header></Header>
         <Route
-          path="/"
+          path="/cryptolist"
           exact
           render={() => (
             <>
