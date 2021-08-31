@@ -4,9 +4,12 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
+import InvestModal from "./components/InvestModal"
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
+  let [modalOpen, setModalOpen] = useState(false);
+  let [selectedCrypto, setSelectedCrypto] = useState({});
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -22,16 +25,27 @@ function App() {
     setCurrentPage(selectedObject.selected + 1);
   };
 
+  function openModal(crypto) {
+    console.log(crypto);
+    setSelectedCrypto(crypto);
+    setModalOpen(true);
+  }
+
+  function modalClose() {
+    setModalOpen(false);
+  }
+
   return (
     <Router>
       <div className="App">
+        <InvestModal crypto={selectedCrypto} modalOpen={modalOpen} modalClose={modalClose}></InvestModal>
         <Route
           path="/"
           exact
           render={() => (
             <>
               <div className="table-container">
-                {cryptoList && <CryptoList cryptoList={cryptoList} />}
+                {cryptoList && <CryptoList cryptoList={cryptoList} openModal={openModal}/>}
               </div>
               <div className="pagination-field">
                 <ReactPaginate
