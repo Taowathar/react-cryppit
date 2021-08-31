@@ -77,7 +77,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
       >
         <h2 style={{textAlign: 'center', fontSize: '30px'}} ref={(_subtitle) => (subtitle = _subtitle)}>Buy {crypto.name}</h2>
         
-        <form name="investForm" onSubmit={buy}>
+        <form onSubmit={buy}>
             <div className="currency-input" currency="USD">
           <InputNumber style={{fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd}/>
           </div>
@@ -85,7 +85,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
           <InputNumber style={{fontSize: '16px', width: '150px'}} value={cryptoAmount} onChange={setCrypto}/>
           </div>
         <div style={{marginTop: '20px'}}>
-        <Button htmlFor="investForm" type="submit" style={{marginLeft: '70px'}}>Buy</Button>
+        <Button type="submit" style={{marginLeft: '70px'}}>Buy</Button>
         <Button style={{float: 'right', marginRight: '70px'}} onClick={closeModal}>Cancel</Button>
         </div>
         </form>
