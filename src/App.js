@@ -6,7 +6,7 @@ import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import InvestModal from "./components/InvestModal"
+import InvestModal from "./components/InvestModal";
 import PortfolioContext from "./context/PortfolioContext";
 import HistoryContext from "./context/HistoryContext";
 
@@ -39,58 +39,67 @@ function App() {
     setModalOpen(false);
   }
 
-  const portfolioHook = useState({"balance": 100000});
-  const historyHook = useState([])
+  const portfolioHook = useState({ balance: 100000 });
+  const historyHook = useState([]);
 
   return (
-    <PortfolioContext.Provider value = {portfolioHook}>
+    <PortfolioContext.Provider value={portfolioHook}>
       <HistoryContext.Provider value={historyHook}>
-    <Router>
-      <div className="App">
-        <Header></Header>
-        <InvestModal crypto={selectedCrypto} modalOpen={modalOpen} modalClose={modalClose}></InvestModal>
-        <Switch>
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <>
-                <Home></Home>
-              </>
-            )}
-          />
+        <Router>
+          <div className="App">
+            <Header></Header>
+            <InvestModal
+              crypto={selectedCrypto}
+              modalOpen={modalOpen}
+              modalClose={modalClose}
+            ></InvestModal>
+            <Switch>
+              <Route
+                path="/"
+                exact
+                render={() => (
+                  <>
+                    <Home openModal={openModal}></Home>
+                  </>
+                )}
+              />
 
-          <Route
-            path="/cryptolist"
-            exact
-            render={() => (
-              <>
-                <div className="table-container">
-                  {cryptoList && <CryptoList cryptoList={cryptoList} />}
-                </div>
-                <div className="pagination-field">
-                  <ReactPaginate
-                    initialPage={0}
-                    pageCount={pageCount}
-                    pageRange={2}
-                    marginPagesDisplayed={2}
-                    onPageChange={handlePageChange}
-                    containerClassName={"pagination-field"}
-                    previousLinkClassName={"page"}
-                    breakClassName={"page"}
-                    nextLinkClassName={"page"}
-                    pageClassName={"page"}
-                    disabledClassNae={"disabled"}
-                    activeClassName={"active"}
-                  />
-                </div>
-              </>
-            )}
-          />
-        </Switch>
-      </div>
-    </Router>
-    </HistoryContext.Provider>
+              <Route
+                path="/cryptolist"
+                exact
+                render={() => (
+                  <>
+                    <div className="table-container">
+                      {cryptoList && (
+                        <CryptoList
+                          cryptoList={cryptoList}
+                          openModal={openModal}
+                        />
+                      )}
+                    </div>
+                    <div className="pagination-field">
+                      <ReactPaginate
+                        initialPage={0}
+                        pageCount={pageCount}
+                        pageRange={2}
+                        marginPagesDisplayed={2}
+                        onPageChange={handlePageChange}
+                        containerClassName={"pagination-field"}
+                        previousLinkClassName={"page"}
+                        breakClassName={"page"}
+                        nextLinkClassName={"page"}
+                        pageClassName={"page"}
+                        disabledClassNae={"disabled"}
+                        activeClassName={"active"}
+                      />
+                    </div>
+                  </>
+                )}
+              />
+            </Switch>
+          </div>
+        </Router>
+      </HistoryContext.Provider>
     </PortfolioContext.Provider>
   );
 }

@@ -1,9 +1,9 @@
 import TodayCoin from "./TodayCoin";
 
-const Home = () => {
+const Home = ({ openModal }) => {
   return (
     <div>
-      <TodayCoin></TodayCoin>
+      <TodayCoin openModal={openModal}></TodayCoin>
     </div>
   );
 };

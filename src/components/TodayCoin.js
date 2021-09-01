@@ -8,7 +8,7 @@ let cryptoPerPage = 20;
 let cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoPerPage}&page=${currentPage}&sparkline=false`;
 let randomCurrency = Math.floor(Math.random() * 20);
 
-function TodayCoin() {
+function TodayCoin({ openModal }) {
   let cryptoList = null;
   let hasCurr = false;
 
@@ -37,7 +37,11 @@ function TodayCoin() {
               </tr>
             </thead>
             <tbody>
-              <Crypto key={crypto.id} crypto={cryptoList[randomCurrency]} />
+              <Crypto
+                key={crypto.id}
+                crypto={cryptoList[randomCurrency]}
+                openModal={openModal}
+              />
             </tbody>
           </table>
           <CoinDetail currency={cryptoList[randomCurrency].id}></CoinDetail>
