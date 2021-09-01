@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import InputNumber from 'react-input-number';
 import styled from 'styled-components';
 import PortfolioContext from '../context/PortfolioContext';
+import HistoryContext from '../context/HistoryContext';
 
 const customStyles = {
   content: {
@@ -37,6 +38,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     const [cryptoAmount, setCryptoAmount] = useState(1);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [portfolio, setPortfolio] = useContext(PortfolioContext);
+    const [history, setHistory] = useContext(HistoryContext);
     let balance = portfolio['balance'];
     const [overBalance, setOverBalance] = useState('false');
     const [errorMessage, setErrorMessage] = useState('');
@@ -47,13 +49,15 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
        setCryptoAmount(1);
        setOverBalance(crypto.current_price > balance ? true : false)
        console.log(portfolio);
-    }, [modalOpen, crypto.current_price, portfolio, balance])
+       console.log(history)
+    }, [modalOpen, crypto.current_price, portfolio, balance, history])
     
     function afterOpenModal() {
         subtitle.style.color = '#0f870f';
     }
     
     function closeModal() {
+        setErrorMessage('');
         setIsOpen(false);
         modalClose();
     }
@@ -87,22 +91,30 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     function buy(e) {
         e.preventDefault();
         if (overBalance) {
-            setErrorMessage('Not enough funds!')
+            setErrorMessage('Not enough funds!');
         } else {
-        const price = parseFloat(e.target[0].value);
-        const boughtAmount = parseFloat(e.target[1].value);
-        if (crypto.id in portfolio) {
-            portfolio[crypto.id]['amount'] += boughtAmount;
-            portfolio[crypto.id]['price'] += price;
-        } else {
-            let purchase = {'amount' : boughtAmount, 
-                            'price' : price}
-            portfolio[crypto.id] = purchase;
+            const price = parseFloat(e.target[0].value);
+            const boughtAmount = parseFloat(e.target[1].value);
+            if (crypto.id in portfolio) {
+                portfolio[crypto.id]['amount'] += boughtAmount;
+                portfolio[crypto.id]['price'] += price;
+            } else {
+                let purchase = {'amount' : boughtAmount, 
+                                'price' : price}
+                portfolio[crypto.id] = purchase;
+            }
+            portfolio["balance"] = +(balance - price).toFixed(2);
+            setPortfolio(portfolio);
+            const newPurchase = {
+                date: new Date(),
+                crypto: crypto,
+                price: price,
+                amount: boughtAmount,
+                action: 'buy'
+            }
+            setHistory([...history, newPurchase])
+            modalClose();
         }
-        portfolio["balance"] = +(balance - price).toFixed(2);
-        setPortfolio(portfolio);
-        modalClose();
-    }
     }
 
     return (

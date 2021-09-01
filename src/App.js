@@ -6,6 +6,7 @@ import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
 import InvestModal from "./components/InvestModal"
 import PortfolioContext from "./context/PortfolioContext";
+import HistoryContext from "./context/HistoryContext";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -37,9 +38,11 @@ function App() {
   }
 
   const portfolioHook = useState({"balance": 100000});
+  const historyHook = useState([])
 
   return (
     <PortfolioContext.Provider value = {portfolioHook}>
+      <HistoryContext.Provider value={historyHook}>
     <Router>
       <div className="App">
         <InvestModal crypto={selectedCrypto} modalOpen={modalOpen} modalClose={modalClose}></InvestModal>
@@ -72,6 +75,7 @@ function App() {
         />
       </div>
     </Router>
+    </HistoryContext.Provider>
     </PortfolioContext.Provider>
   );
 }
