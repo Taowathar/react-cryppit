@@ -15,7 +15,7 @@ const CryptoList = ({ cryptoList, openModal }) => {
         </thead>
         <tbody>
           {cryptoList.map((crypto) => (
-            <Crypto key={crypto.id} crypto={crypto} openModal={openModal}/>
+            <Crypto key={crypto.id} crypto={crypto} openModal={openModal} isFavorite={false} />
           ))}
         </tbody>
       </table>
