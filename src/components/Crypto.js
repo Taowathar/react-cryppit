@@ -5,12 +5,12 @@ const Crypto = ({ crypto, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
 
   const changeFavorite = () => {
+    setfavorite(!favorite);
     if (favorite) {
       localStorage.removeItem(`favorite ${crypto.id}`);
     } else {
       localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
     }
-    setfavorite(!favorite);
   };
 
   return (
