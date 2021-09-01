@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
 import InvestModal from "./components/InvestModal"
+import PortfolioContext from "./context/PortfolioContext";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +36,10 @@ function App() {
     setModalOpen(false);
   }
 
+  const portfolioHook = useState({"balance": 100000});
+
   return (
+    <PortfolioContext.Provider value = {portfolioHook}>
     <Router>
       <div className="App">
         <InvestModal crypto={selectedCrypto} modalOpen={modalOpen} modalClose={modalClose}></InvestModal>
@@ -68,6 +72,7 @@ function App() {
         />
       </div>
     </Router>
+    </PortfolioContext.Provider>
   );
 }
 

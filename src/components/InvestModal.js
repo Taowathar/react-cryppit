@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Modal from 'react-modal';
 import InputNumber from 'react-input-number';
 import styled from 'styled-components';
-
+import PortfolioContext from '../context/PortfolioContext';
 
 const customStyles = {
   content: {
@@ -36,35 +36,72 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     const [usdAmount, setUsdAmount] = useState(crypto.current_price);
     const [cryptoAmount, setCryptoAmount] = useState(1);
     const [modalIsOpen, setIsOpen] = React.useState(false);
-
+    const [portfolio, setPortfolio] = useContext(PortfolioContext);
+    let balance = portfolio['balance'];
+    const [overBalance, setOverBalance] = useState('false');
+    const [errorMessage, setErrorMessage] = useState('');
+    
     useEffect(() => {
        setIsOpen(modalOpen)
-    }, [modalOpen])
-
-
+       setUsdAmount(crypto.current_price);
+       setCryptoAmount(1);
+       setOverBalance(crypto.current_price > balance ? true : false)
+       console.log(portfolio);
+    }, [modalOpen, crypto.current_price, portfolio])
+    
+    
     function afterOpenModal() {
         subtitle.style.color = '#0f870f';
     }
-
+    
     function closeModal() {
         setIsOpen(false);
         modalClose();
     }
+    
 
     function setUsd(e) {
+        if(e > balance) {
+            setOverBalance(true)
+        } else {
+            setOverBalance(false)
+            if(e < 0){
+                e = 0;
+            }
+        }
         setUsdAmount(e)
         setCryptoAmount(+(e/crypto.current_price).toFixed(10))
     }
 
     function setCrypto(e) {
+        if(e*crypto.current_price > balance) {
+            setOverBalance(true)
+        } else {
+            setOverBalance(false)
+            if(e < 0){
+                e = 0;
+            }
+        }
         setCryptoAmount(e)
         setUsdAmount(+(e*crypto.current_price).toFixed(2))
     }
 
     function buy(e) {
         e.preventDefault();
-        console.log(e.target[0].value);
-        console.log(e.target[1].value);
+        if (overBalance) {
+            setErrorMessage('Not enough funds!')
+        } else {
+        const price = parseFloat(e.target[0].value);
+        const boughtAmount = parseFloat(e.target[1].value);
+        if (crypto.id in portfolio) {
+            portfolio[crypto.id] += boughtAmount;
+        } else {
+            portfolio[crypto.id] = boughtAmount;
+        }
+        portfolio["balance"] = +(balance - price).toFixed(2);
+        setPortfolio(portfolio);
+        modalClose();
+    }
     }
 
     return (
@@ -76,18 +113,21 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
         contentLabel="Example Modal"
       >
         <h2 style={{textAlign: 'center', fontSize: '30px'}} ref={(_subtitle) => (subtitle = _subtitle)}>Buy {crypto.name}</h2>
+
         
         <form onSubmit={buy}>
+            <label style={{display: 'block', fontStyle: 'italic', fontSize: '12px', paddingBottom: '6px'}}>Balance: ${portfolio['balance']}</label>
             <div className="currency-input" currency="USD">
-          <InputNumber style={{fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd}/>
+          <InputNumber id='usd-input' style={overBalance ? {backgroundColor: '#ff8080', fontSize: '16px', width: '150px'} : {backgroundColor: 'white', fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd} max={portfolio['balance']}/>
           </div>
           <div className="currency-input" currency={crypto.symbol}>
           <InputNumber style={{fontSize: '16px', width: '150px'}} value={cryptoAmount} onChange={setCrypto}/>
           </div>
-        <div style={{marginTop: '20px'}}>
+        <div style={{marginTop: '20px'}}>   
         <Button type="submit" style={{marginLeft: '70px'}}>Buy</Button>
         <Button style={{float: 'right', marginRight: '70px'}} onClick={closeModal}>Cancel</Button>
         </div>
+        {errorMessage && (<p style={{color: 'red'}}> {errorMessage} </p>)}
         </form>
       </Modal>
     )
