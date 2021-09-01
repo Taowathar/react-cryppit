@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
+import FavoriteList from "./components/FavoriteList";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -50,6 +51,15 @@ function App() {
                 />
               </div>
             </>
+          )}
+        />
+        <Route
+          path="/favorites"
+          exact
+          render={() => (
+            <div className="table-container">
+              <FavoriteList />
+            </div>
           )}
         />
       </div>
