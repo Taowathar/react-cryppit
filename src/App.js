@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
+import FavoriteList from "./components/FavoriteList";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
@@ -94,6 +95,15 @@ function App() {
                       />
                     </div>
                   </>
+                )}
+              />
+              <Route
+                path="/favorites"
+                exact
+                render={() => (
+                  <div className="table-container">
+                    <FavoriteList />
+                  </div>
                 )}
               />
             </Switch>

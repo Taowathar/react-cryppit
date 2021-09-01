@@ -1,6 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from 'styled-components';
+
+
+const Crypto = ({crypto, openModal, isFavorite}) => {
+  const [favorite, setfavorite] = useState(isFavorite);
+
+  useEffect(() => {
+    const getAllItemFromLocalStorage = () => {
+      let values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+      while (i--) {
+        values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+      }
+
+      return values;
+    };
+
+    let storage = getAllItemFromLocalStorage();
+    if (storage.includes(crypto.id)) {
+      setfavorite(true);
+    }
+  }, []);
 
 const InvestButton = styled.button`
     padding: 8px;
@@ -11,12 +34,13 @@ const InvestButton = styled.button`
     cursor: pointer;
 `
 
-
-const Crypto = ({crypto, openModal}) => {
-  const [favorite, setfavorite] = useState(false);
-
   const changeFavorite = () => {
     setfavorite(!favorite);
+    if (favorite) {
+      localStorage.removeItem(`favorite ${crypto.id}`);
+    } else {
+      localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
+    }
   };
 
   function onClick() {
