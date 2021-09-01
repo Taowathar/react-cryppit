@@ -17,6 +17,9 @@ function Navbar() {
         <NavDiv className="Trade">
           <NavLink to="/trade">Trade</NavLink>
         </NavDiv>
+        <NavDiv className="Trade">
+          <NavLink to="/favorites">Favorites</NavLink>
+        </NavDiv>
       </NavBar>
     </div>
   );
