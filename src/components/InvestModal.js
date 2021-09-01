@@ -47,8 +47,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
        setCryptoAmount(1);
        setOverBalance(crypto.current_price > balance ? true : false)
        console.log(portfolio);
-    }, [modalOpen, crypto.current_price, portfolio])
-    
+    }, [modalOpen, crypto.current_price, portfolio, balance])
     
     function afterOpenModal() {
         subtitle.style.color = '#0f870f';
@@ -59,7 +58,6 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
         modalClose();
     }
     
-
     function setUsd(e) {
         if(e > balance) {
             setOverBalance(true)
@@ -94,9 +92,12 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
         const price = parseFloat(e.target[0].value);
         const boughtAmount = parseFloat(e.target[1].value);
         if (crypto.id in portfolio) {
-            portfolio[crypto.id] += boughtAmount;
+            portfolio[crypto.id]['amount'] += boughtAmount;
+            portfolio[crypto.id]['price'] += price;
         } else {
-            portfolio[crypto.id] = boughtAmount;
+            let purchase = {'amount' : boughtAmount, 
+                            'price' : price}
+            portfolio[crypto.id] = purchase;
         }
         portfolio["balance"] = +(balance - price).toFixed(2);
         setPortfolio(portfolio);
