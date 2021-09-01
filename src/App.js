@@ -6,9 +6,14 @@ import { useAxiosGet } from "./hooks/axiosGet";
 import CryptoList from "./components/CryptoList";
 import Header from "./components/Header";
 import Home from "./components/Home";
+import InvestModal from "./components/InvestModal"
+import PortfolioContext from "./context/PortfolioContext";
+import HistoryContext from "./context/HistoryContext";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
+  let [modalOpen, setModalOpen] = useState(false);
+  let [selectedCrypto, setSelectedCrypto] = useState({});
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -24,11 +29,26 @@ function App() {
     setCurrentPage(selectedObject.selected + 1);
   };
 
+  function openModal(crypto) {
+    console.log(crypto);
+    setSelectedCrypto(crypto);
+    setModalOpen(true);
+  }
+
+  function modalClose() {
+    setModalOpen(false);
+  }
+
+  const portfolioHook = useState({"balance": 100000});
+  const historyHook = useState([])
+
   return (
+    <PortfolioContext.Provider value = {portfolioHook}>
+      <HistoryContext.Provider value={historyHook}>
     <Router>
       <div className="App">
         <Header></Header>
-
+        <InvestModal crypto={selectedCrypto} modalOpen={modalOpen} modalClose={modalClose}></InvestModal>
         <Switch>
           <Route
             path="/"
@@ -70,6 +90,8 @@ function App() {
         </Switch>
       </div>
     </Router>
+    </HistoryContext.Provider>
+    </PortfolioContext.Provider>
   );
 }
 
