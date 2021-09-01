@@ -30,7 +30,6 @@ function App() {
   };
 
   function openModal(crypto) {
-    console.log(crypto);
     setSelectedCrypto(crypto);
     setModalOpen(true);
   }
