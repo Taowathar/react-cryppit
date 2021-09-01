@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from 'styled-components';
 
-const Crypto = ({ crypto, isFavorite }) => {
+
+const Crypto = ({crypto, openModal, isFavorite}) => {
   const [favorite, setfavorite] = useState(isFavorite);
 
   useEffect(() => {
@@ -32,11 +33,6 @@ const InvestButton = styled.button`
     border-radius: .5rem;
     cursor: pointer;
 `
-
-
-const Crypto = ({crypto, openModal}) => {
-  const [favorite, setfavorite] = useState(false);
-
 
   const changeFavorite = () => {
     setfavorite(!favorite);
