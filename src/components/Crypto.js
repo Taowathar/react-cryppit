@@ -1,8 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const Crypto = ({ crypto, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
+
+  useEffect(() => {
+    const getAllItemFromLocalStorage = () => {
+      let values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+      while (i--) {
+        values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+      }
+
+      return values;
+    };
+
+    let storage = getAllItemFromLocalStorage();
+    if (storage.includes(crypto.id)) {
+      setfavorite(true);
+    }
+  }, []);
 
   const changeFavorite = () => {
     setfavorite(!favorite);
