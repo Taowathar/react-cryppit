@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Crypto from "./Crypto";
 
 const FavoriteList = () => {
   let [favorites, setFavorites] = useState([]);
@@ -32,7 +33,10 @@ const FavoriteList = () => {
           </tr>
         </thead>
         <tbody>
-
+          {favorites &&
+            favorites.map((crypto) => (
+              <Crypto key={crypto.id} crypto={crypto} isFavorite={true} />
+            ))}
         </tbody>
       </table>
     </div>
