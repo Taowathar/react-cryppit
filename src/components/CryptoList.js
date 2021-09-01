@@ -15,7 +15,7 @@ const CryptoList = ({ cryptoList }) => {
         </thead>
         <tbody>
           {cryptoList.map((crypto) => (
-            <Crypto key={crypto.id} crypto={crypto} />
+            <Crypto key={crypto.id} crypto={crypto} isFavorite={false} />
           ))}
         </tbody>
       </table>
