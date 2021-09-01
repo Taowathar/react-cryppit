@@ -74,10 +74,8 @@ table {
   display: flex;
 }
 
-span {
-  text-transform: uppercase;
-  margin-left: 25px;
-  text-align: right;
+.crypto-symbol {
+  text-transform: uppercase;  
 }
 
 .favoriteButton {

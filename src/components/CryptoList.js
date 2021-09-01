@@ -8,6 +8,7 @@ const CryptoList = ({ cryptoList, openModal }) => {
           <tr>
             <th>Favorite</th>
             <th>Name</th>
+            <th>Symbol</th>
             <th>Price</th>
             <th>Change</th>
           </tr>
