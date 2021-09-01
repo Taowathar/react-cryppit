@@ -82,3 +82,23 @@ table {
   color: green;
   cursor: pointer;
 }
+
+.currency-input {
+  position: relative;
+  display: inline-block;
+}
+
+.currency-input::after {
+  content: attr(currency);
+  font-size: 20px;
+  direction: rtl;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  border: 1px;
+  text-transform: uppercase;
+  transform: translateY(-60%);
+
+}
