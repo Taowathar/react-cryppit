@@ -96,12 +96,12 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
             const price = parseFloat(e.target[0].value);
             const boughtAmount = parseFloat(e.target[1].value);
             if (crypto.id in portfolio) {
-                portfolio[crypto.id]['amount'] += boughtAmount;
-                portfolio[crypto.id]['price'] += price;
+                portfolio['owned'][crypto.id]['amount'] += boughtAmount;
+                portfolio['owned'][crypto.id]['price'] += price;
             } else {
                 let purchase = {'amount' : boughtAmount, 
                                 'price' : price}
-                portfolio[crypto.id] = purchase;
+                portfolio['owned'][crypto.id] = purchase;
             }
             portfolio["balance"] = +(balance - price).toFixed(2);
             setPortfolio(portfolio);

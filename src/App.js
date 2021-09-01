@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
 import PortfolioContext from "./context/PortfolioContext";
 import HistoryContext from "./context/HistoryContext";
+import Portfolio from "./components/Portfolio";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +41,7 @@ function App() {
     setModalOpen(false);
   }
 
-  const portfolioHook = useState({ balance: 100000 });
+  const portfolioHook = useState({balance: 100000, owned: {}});
   const historyHook = useState([]);
 
   return (
@@ -106,6 +107,12 @@ function App() {
                   </div>
                 )}
               />
+              <Route
+                path="/portfolio"
+                exact
+                render={() => <Portfolio/>}
+              />
+
             </Switch>
           </div>
         </Router>
