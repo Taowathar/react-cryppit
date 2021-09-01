@@ -55,7 +55,8 @@ code {
 
 .crypto-img {
   max-width: 25px;
-  margin-right: 25px;
+  padding-right: 15px;
+  top: 10px;
 }
 
 .table-container {
