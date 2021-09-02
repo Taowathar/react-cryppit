@@ -6,9 +6,9 @@ function Navbar() {
   return (
     <div className="navBar">
       <NavBar>
-        <NavDiv className="Home">
+        <NavDiv className="Home" style={{paddingTop: '.5rem'}}>
           <NavLink to="/">
-            <Image src={logo}></Image>
+            <Image style={{width: '150px', height: 'auto', transform: 'translateY(-5%)'}} src={logo}></Image>
           </NavLink>
         </NavDiv>
         <NavDiv className="CryptoList">
@@ -24,7 +24,7 @@ function Navbar() {
           <NavLink to="/favorites">Favorites</NavLink>
         </NavDiv>
         <NavDiv className="Balance">
-          <h1 style={{ marginLeft: "54rem" }}>
+          <h1 style={{ marginLeft: "53rem", transform: 'translateY(-70%)' }}>
             Balance: ${localStorage.getItem("balance")}
           </h1>
         </NavDiv>
@@ -39,15 +39,17 @@ const NavDiv = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  font-size: 1.8em;
-  padding: 1rem;
+  font-size: 1.6em;
+  padding: .8rem;
   margin-left: 1rem;
   text-decoration: none;
+  transform: translateY(-50%);
+  color: #5065a7;
 `;
 
 const NavBar = styled.nav`
   width: 100%;
-  min-height: 6vh;
+  height: 6.5vh;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
