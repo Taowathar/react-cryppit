@@ -30,7 +30,7 @@ function TodayCoin({ openModal }) {
       {hasCurr && (
         <div className="todayCoin">
           <CoinDetail
-            currency={randomCurr}
+            crypto={randomCurr}
             openModal={openModal}
           ></CoinDetail>
         </div>
