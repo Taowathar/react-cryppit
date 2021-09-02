@@ -110,7 +110,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
                 crypto: crypto,
                 price: price,
                 amount: boughtAmount,
-                action: 'buy'
+                buy: true
             }
             setHistory([...history, newPurchase])
             modalClose();

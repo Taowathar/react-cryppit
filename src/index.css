@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: khaki;
 }
 
 code {
@@ -14,7 +15,7 @@ code {
 
 .page {
   padding: 10px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid green;
   border-radius: 6px;
   margin-right: 10px;
   cursor: pointer;
@@ -54,8 +55,10 @@ code {
 }
 
 .crypto-img {
+  margin-left: 10px;
   max-width: 25px;
-  margin-right: 25px;
+  padding-right: 15px;
+  top: 10px;
 }
 
 .table-container {
@@ -67,7 +70,35 @@ code {
 }
 
 table {
-  border: 3px solid black;
+  margin-top: 50px;
+  width: 90%;
+  border-radius: 15px;
+}
+
+tr:nth-child(even) {
+  background-color: aliceblue;
+}
+
+tr:nth-child(odd) {
+  background-color: antiquewhite;
+}
+
+#table-head {
+  background-color: black;
+  color: white;
+}
+.table-column-favorite {
+  width: 40px;
+}
+
+.investButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table button {
+  margin-top: 4px;
 }
 
 .table-data-name {
@@ -75,7 +106,8 @@ table {
 }
 
 .crypto-symbol {
-  text-transform: uppercase;  
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .favoriteButton {
@@ -100,5 +132,4 @@ table {
   border: 1px;
   text-transform: uppercase;
   transform: translateY(-60%);
-
 }
