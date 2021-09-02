@@ -1,5 +1,5 @@
 import ReactPaginate from "react-paginate";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
@@ -8,8 +8,6 @@ import FavoriteList from "./components/FavoriteList";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
-import PortfolioContext from "./context/PortfolioContext";
-import HistoryContext from "./context/HistoryContext";
 import CryptoDetails from "./components/CryptoDetails";
 import Portfolio from "./components/Portfolio";
 
