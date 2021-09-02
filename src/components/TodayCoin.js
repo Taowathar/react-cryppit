@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import CoinDetail from "./CoinDetail";
 import logo from "../img/clogo.jpg";
 
+
 let currentPage = Math.floor(Math.random() * 50) + 1;
 let cryptoPerPage = 20;
 let cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoPerPage}&page=${currentPage}&sparkline=false`;
