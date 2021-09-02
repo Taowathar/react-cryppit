@@ -133,3 +133,8 @@ table button {
   text-transform: uppercase;
   transform: translateY(-60%);
 }
+
+.detail-link {
+  text-decoration: none;
+  color:black;
+}
