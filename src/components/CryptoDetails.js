@@ -37,7 +37,6 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
       prices.push(detail[1]);
     }
   }
-  console.log(cryptoData);
 
   const state = {
     labels: dates,
