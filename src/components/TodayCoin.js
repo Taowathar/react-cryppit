@@ -1,8 +1,8 @@
 import { useAxiosGet } from "../hooks/axiosGet";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import CoinDetail from "./CoinDetail";
-import { Spinner } from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../img/clogo.jpg";
+
 
 let currentPage = Math.floor(Math.random() * 50) + 1;
 let cryptoPerPage = 20;
@@ -28,26 +28,18 @@ function TodayCoin({ openModal }) {
   return (
     <>
       {!hasCurr && (
-        <div class="d-flex justify-content-center">
+        <div
+          class="d-flex justify-content-center"
+          style={{ marginLeft: "57rem", marginTop: "24rem" }}
+        >
           <h1>
-            <Spinner
-              style={{
-                marginLeft: "3.3rem",
-                marginTop: "25rem",
-              }}
-              as="span"
-              variant="dark"
-              size="large"
-              role="status"
-              aria-hidden="true"
-              animation="border"
-            />
+            {" "}
+            <Image src={logo}></Image>
             <br></br>
             Loading...
           </h1>
         </div>
       )}
-
       {hasCurr && (
         <TodayDiv>
           <Title>Today's coin</Title>
@@ -76,6 +68,21 @@ const TodayDiv = styled.div`
   margin-top: 8rem;
 `;
 
-const Spin = styled(Spinner)``;
+const spin = keyframes`
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+`;
+
+const Image = styled.img`
+  animation: ${spin} 1s infinite;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 2.3rem;
+`;
 
 export default TodayCoin;

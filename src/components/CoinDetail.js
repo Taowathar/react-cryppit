@@ -83,7 +83,11 @@ const CoinDetail = ({ crypto, openModal }) => {
         <>
           <ButtonsDiv>
             <div className="favoriteButton" onClick={changeFavorite}>
-              {favorite ? <AiFillHeart size={30} /> : <AiOutlineHeart size={30} />}
+              {favorite ? (
+                <AiFillHeart size={30} />
+              ) : (
+                <AiOutlineHeart size={30} />
+              )}
             </div>
             <div>
               <InvestButton onClick={onClick}>Invest</InvestButton>
@@ -91,7 +95,7 @@ const CoinDetail = ({ crypto, openModal }) => {
           </ButtonsDiv>
 
           <TodayContainer>
-            <div>
+            <div style={{ marginTop: "-2rem" }}>
               <h2>
                 <img
                   src={crypto.image}
@@ -169,7 +173,7 @@ const ButtonsDiv = styled.div`
   display: flex;
   justify-content: center;
   margin-top: -1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: -1.5rem;
 `;
 
 export default CoinDetail;
