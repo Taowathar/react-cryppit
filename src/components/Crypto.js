@@ -66,7 +66,7 @@ const Crypto = ({ crypto, openModal, isFavorite }) => {
       >
         {change < 0 ? change.toFixed(2) : `+${change.toFixed(2)}`}%
       </td>
-      <td>
+      <td className="investButton">
         <InvestButton onClick={onClick}>Invest</InvestButton>
       </td>
     </tr>
