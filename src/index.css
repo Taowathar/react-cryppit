@@ -70,7 +70,7 @@ code {
 }
 
 table {
-  margin-top: 50px;
+  margin-top: 15px;
   width: 90%;
   border-radius: 15px;
 }
@@ -136,6 +136,11 @@ table button {
 
 ul {
   padding-inline-start: 0px;
+}
+
+ul.pagination-field {
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .detail-link {
