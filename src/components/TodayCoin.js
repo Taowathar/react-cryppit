@@ -2,7 +2,7 @@ import { useAxiosGet } from "../hooks/axiosGet";
 import styled from "styled-components";
 import CoinDetail from "./CoinDetail";
 import { Spinner } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 let currentPage = Math.floor(Math.random() * 50) + 1;
 let cryptoPerPage = 20;

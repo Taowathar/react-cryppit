@@ -58,31 +58,25 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
         modalClose();
     }
     
-    function setUsd(e) {
-        console.log(e);
-        if(e > balance) {
-            setOverBalance(true)
-        } else {
-            setOverBalance(false)
-            if(e < 0){
-                e = 0;
-            }
+    function setUsd(inputValue) {
+        setOverBalance(inputValue > balance);
+        if(inputValue < 0){
+            inputValue = 0;
         }
-        setUsdAmount(e)
-        setCryptoAmount(+(e/crypto.current_price).toFixed(10))
+        setUsdAmount(inputValue);
+        const decimalPlaces = 10;
+        setCryptoAmount(+(inputValue/crypto.current_price).toFixed(decimalPlaces))
     }
 
-    function setCrypto(e) {
-        if(e*crypto.current_price > balance) {
-            setOverBalance(true)
-        } else {
-            setOverBalance(false)
-            if(e < 0){
-                e = 0;
-            }
+    function setCrypto(inputValue) {
+        const totalUsd = inputValue*crypto.current_price;
+        setOverBalance(totalUsd > balance);
+        if(inputValue < 0){
+            inputValue = 0;
         }
-        setCryptoAmount(e)
-        setUsdAmount(+(e*crypto.current_price).toFixed(2))
+        setCryptoAmount(inputValue);
+        const decimalPlaces = 2;
+        setUsdAmount(+(totalUsd).toFixed(decimalPlaces));
     }
 
     function buy(e) {
