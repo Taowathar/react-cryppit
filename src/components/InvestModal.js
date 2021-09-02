@@ -1,9 +1,7 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import Modal from 'react-modal';
 import InputNumber from 'react-input-number';
 import styled from 'styled-components';
-import PortfolioContext from '../context/PortfolioContext';
-import HistoryContext from '../context/HistoryContext';
 
 const customStyles = {
   content: {
@@ -37,9 +35,11 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     const [usdAmount, setUsdAmount] = useState(crypto.current_price);
     const [cryptoAmount, setCryptoAmount] = useState(1);
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [portfolio, setPortfolio] = useContext(PortfolioContext);
-    const [history, setHistory] = useContext(HistoryContext);
-    let balance = portfolio['balance'];
+    const history = JSON.parse(localStorage.getItem('history'));
+    console.log(history);
+    let balance = localStorage.getItem('balance');
+    console.log(JSON.parse(localStorage.getItem('portfolio')));     
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     const [overBalance, setOverBalance] = useState('false');
     const [errorMessage, setErrorMessage] = useState('');
     
@@ -48,9 +48,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
        setUsdAmount(crypto.current_price);
        setCryptoAmount(1);
        setOverBalance(crypto.current_price > balance ? true : false)
-       console.log(portfolio);
-       console.log(history)
-    }, [modalOpen, crypto.current_price, portfolio, balance, history])
+    }, [modalOpen, crypto.current_price, balance])
     
     function afterOpenModal() {
         subtitle.style.color = '#0f870f';
@@ -63,6 +61,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     }
     
     function setUsd(e) {
+        console.log(e);
         if(e > balance) {
             setOverBalance(true)
         } else {
@@ -96,15 +95,15 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
             const price = parseFloat(e.target[0].value);
             const boughtAmount = parseFloat(e.target[1].value);
             if (crypto.id in portfolio) {
-                portfolio['owned'][crypto.id]['amount'] += boughtAmount;
-                portfolio['owned'][crypto.id]['price'] += price;
+                portfolio[crypto.id]['amount'] += boughtAmount;
+                portfolio[crypto.id]['price'] += price;
             } else {
                 let purchase = {'amount' : boughtAmount, 
                                 'price' : price}
-                portfolio['owned'][crypto.id] = purchase;
+                portfolio[crypto.id] = purchase;
             }
-            portfolio["balance"] = +(balance - price).toFixed(2);
-            setPortfolio(portfolio);
+            localStorage.setItem('balance', +(localStorage.getItem('balance') - price).toFixed(2))
+            localStorage.setItem('portfolio', JSON.stringify(portfolio))
             const newPurchase = {
                 date: new Date(),
                 crypto: crypto,
@@ -112,7 +111,8 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
                 amount: boughtAmount,
                 buy: true
             }
-            setHistory([...history, newPurchase])
+            history.push(newPurchase);
+            localStorage.setItem('history', JSON.stringify(history));
             modalClose();
         }
     }
@@ -129,7 +129,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
 
         
         <form onSubmit={buy}>
-            <label style={{display: 'block', fontStyle: 'italic', fontSize: '12px', paddingBottom: '6px'}}>Balance: ${portfolio['balance']}</label>
+            <label style={{display: 'block', fontStyle: 'italic', fontSize: '12px', paddingBottom: '6px'}}>Balance: ${balance}</label>
             <div className="currency-input" currency="USD">
           <InputNumber id='usd-input' style={overBalance ? {backgroundColor: '#ff8080', fontSize: '16px', width: '150px'} : {backgroundColor: 'white', fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd} max={portfolio['balance']}/>
           </div>

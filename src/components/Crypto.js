@@ -11,42 +11,45 @@ const Crypto = ({crypto, openModal, isFavorite}) => {
       let values = [],
         keys = Object.keys(localStorage),
         i = keys.length;
-
+        
       while (i--) {
-        values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+        if (keys[i][0] === 'f') {
+          values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+          
+        }
       }
-
+      
       return values;
     };
-
+    
     let storage = getAllItemFromLocalStorage();
     if (storage.includes(crypto.id)) {
       setfavorite(true);
     }
   }, []);
-
-const InvestButton = styled.button`
+  
+  const InvestButton = styled.button`
     padding: 8px;
     background-color: #0bba0b;
     color: white;
     border: 0;
     border-radius: .5rem;
     cursor: pointer;
-`
+    `
 
-  const changeFavorite = () => {
-    setfavorite(!favorite);
-    if (favorite) {
+const changeFavorite = () => {
+  setfavorite(!favorite);
+  if (favorite) {
       localStorage.removeItem(`favorite ${crypto.id}`);
     } else {
       localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
     }
   };
-
+  
   function onClick() {
     openModal(crypto);
   }
-
+  
   const change = crypto.price_change_percentage_24h;
 
   return (

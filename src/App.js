@@ -8,8 +8,6 @@ import FavoriteList from "./components/FavoriteList";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
-import PortfolioContext from "./context/PortfolioContext";
-import HistoryContext from "./context/HistoryContext";
 import Portfolio from "./components/Portfolio";
 
 function App() {
@@ -20,33 +18,32 @@ function App() {
   const pageCount = 459;
   const cryptoPerPage = 20;
   const cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoPerPage}&page=${currentPage}&sparkline=false`;
-
+  
   let cryptoList = null;
   const [, fetchedCryptoList] = useAxiosGet(cryptoListURL, [currentPage]);
   if (fetchedCryptoList) {
     cryptoList = fetchedCryptoList;
   }
-
+  
   const handlePageChange = (selectedObject) => {
     setCurrentPage(selectedObject.selected + 1);
   };
-
+  
   function openModal(crypto) {
-    console.log(crypto);
     setSelectedCrypto(crypto);
     setModalOpen(true);
   }
-
+  
   function modalClose() {
     setModalOpen(false);
   }
-
-  const portfolioHook = useState({balance: 100000, owned: {}});
-  const historyHook = useState([]);
+  if (localStorage.getItem('balance') === null){
+    localStorage.setItem('balance', 100000);
+    localStorage.setItem('portfolio', JSON.stringify({}))
+    localStorage.setItem('history', JSON.stringify([]))
+  }
 
   return (
-    <PortfolioContext.Provider value={portfolioHook}>
-      <HistoryContext.Provider value={historyHook}>
         <Router>
           <div className="App">
             <Header></Header>
@@ -116,8 +113,6 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </HistoryContext.Provider>
-    </PortfolioContext.Provider>
   );
 }
 
