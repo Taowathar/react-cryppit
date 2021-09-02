@@ -11,6 +11,7 @@ let randomCurrency = Math.floor(Math.random() * 20);
 function TodayCoin({ openModal }) {
   let cryptoList = null;
   let hasCurr = false;
+  let randomCurr = null;
 
   const [, fetchedCryptoList] = useAxiosGet(cryptoListURL, [currentPage]);
 
@@ -20,41 +21,33 @@ function TodayCoin({ openModal }) {
 
   if (cryptoList != null) {
     hasCurr = true;
+    randomCurr = cryptoList[randomCurrency];
   }
 
   return (
-    <div>
+    <TodayDiv>
       <Title>Today's coin</Title>
       {hasCurr && (
-        <div className="table-container">
-          <table>
-            <thead>
-            <tr id="table-head">
-            <th className="table-column-favorite"></th>
-            <th className="table-column-logo" style={{textAlign: 'left', transform: 'translateX(22%)'}}>Name</th>
-            <th className="table-column-symbol">Symbol</th>
-            <th className="table-column-price" style={{padding: '10px'}}>Price (USD)</th>
-            <th className="table-column-change" style={{padding: '10px'}}>Change (24h)</th>
-            <th></th>
-          </tr>
-            </thead>
-            <tbody>
-              <Crypto
-                key={crypto.id}
-                crypto={cryptoList[randomCurrency]}
-                openModal={openModal}
-              />
-            </tbody>
-          </table>
-          <CoinDetail currency={cryptoList[randomCurrency].id}></CoinDetail>
+        <div className="todayCoin">
+          <CoinDetail
+            currency={randomCurr}
+            openModal={openModal}
+          ></CoinDetail>
         </div>
       )}
-    </div>
+    </TodayDiv>
   );
 }
 
 const Title = styled.h1`
   text-align: center;
+`;
+
+const TodayDiv = styled.div`
+  border: 4px solid #a29d9d;
+  margin: 3rem;
+  max-width: 75rem;
+  margin-left: 17rem;
 `;
 
 export default TodayCoin;
