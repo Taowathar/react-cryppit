@@ -76,7 +76,7 @@ const Crypto = ({
       </td>
       <td className="crypto-symbol">{crypto.symbol}</td>
       <td style={{ textAlign: "right", padding: "10px" }}>
-        { crypto.current_price ? 
+        ${ crypto.current_price ? 
         `${(crypto.current_price.toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
