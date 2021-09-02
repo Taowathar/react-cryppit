@@ -23,7 +23,9 @@ const CoinDetail = ({ crypto, openModal }) => {
         i = keys.length;
 
       while (i--) {
-        values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+        if (keys[i].includes("favorite")) {
+          storage.push(JSON.parse(localStorage.getItem(keys[i])));
+        }
       }
 
       return values;
