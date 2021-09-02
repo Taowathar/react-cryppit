@@ -75,13 +75,13 @@ const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
               <h2>
                 {crypto.name} ({crypto.symbol.toUpperCase()})
               </h2>
-              <h4>Current price: {crypto.current_price} USD</h4>
-              <h4>Market cap: {crypto.market_cap} USD</h4>
-              <h4>24h Highest: {crypto.high_24h} USD</h4>
-              <h4>24h Lowest: {crypto.low_24h} USD</h4>
-              <h4>24h Price change: {crypto.price_change_percentage_24h} %</h4>
-              <h4>All time high: {crypto.ath} USD</h4>
-              <h4>Total volume: {crypto.total_volume}</h4>
+              <h4>Current price: {crypto.market_data.current_price.usd} USD</h4>
+              <h4>Market cap: {crypto.market_data.market_cap.usd} USD</h4>
+              <h4>24h Highest: {crypto.market_data.high_24h.usd} USD</h4>
+              <h4>24h Lowest: {crypto.market_data.low_24h.usd} USD</h4>
+              <h4>24h Price change: {crypto.market_data.price_change_percentage_24h_in_currency.usd} %</h4>
+              <h4>All time high: {crypto.market_data.ath.usd} USD</h4>
+              <h4>Total volume: {crypto.market_data.total_volume.usd}</h4>
             </div>
             <GraphDiv>
               <Line
