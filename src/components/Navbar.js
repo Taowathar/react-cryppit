@@ -23,6 +23,11 @@ function Navbar() {
         <NavDiv className="Trade">
           <NavLink to="/favorites">Favorites</NavLink>
         </NavDiv>
+        <NavDiv className="Balance">
+          <h4 style={{ marginLeft: "54rem", paddingTop: "0.5rem" }}>
+            Balance: ${localStorage.getItem("balance")}
+          </h4>
+        </NavDiv>
       </NavBar>
     </div>
   );
