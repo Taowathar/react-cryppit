@@ -2,6 +2,8 @@ import { useAxiosGet } from "../hooks/axiosGet";
 import { timeConverter } from "../converters/UnixTimeConverter";
 import { Line } from "react-chartjs-2";
 import styled from "styled-components";
+import { useState } from "react";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const CoinDetail = ({ currency, openModal }) => {
   let cryptoData = null;
@@ -12,6 +14,11 @@ const CoinDetail = ({ currency, openModal }) => {
   let dataUrl = `https://api.coingecko.com/api/v3/coins/${currency.id}/market_chart?vs_currency=usd&days=30&interval=daily`;
 
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
+  const [favorite, setfavorite] = useState(false);
+
+  const changeFavorite = () => {
+    setfavorite(!favorite);
+  };
 
   if (fetchedCryptoData) {
     cryptoData = fetchedCryptoData;
@@ -47,42 +54,54 @@ const CoinDetail = ({ currency, openModal }) => {
   return (
     <div>
       {hasData && (
-        <TodayContainer>
-          <InvestButton onClick={onClick}>Invest</InvestButton>
-          <div>
-            <h2>
-              {currency.name} ({currency.symbol.toUpperCase()})
-            </h2>
-            <h4>Current price: {currency.current_price} USD</h4>
-            <h4>Market cap: {currency.market_cap} USD</h4>
-            <h4>24h Highest: {currency.high_24h} USD</h4>
-            <h4>24h Lowest: {currency.low_24h} USD</h4>
-            <h4>24h Price change: {currency.price_change_percentage_24h} %</h4>
-            <h4>All time high: {currency.ath} USD</h4>
-            <h4>Total volume: {currency.total_volume}</h4>
-          </div>
-          <GraphDiv>
-            <Line
-              data={state}
-              options={{
-                title: {
-                  display: true,
-                  text: "Crypto prices from the last 30 days",
-                  fontSize: 20,
-                },
-                legend: {
-                  display: false,
-                },
-                elements: {
-                  point: {
-                    radius: 0,
-                    pointHitRadius: 5,
+        <>
+          <ButtonsDiv>
+            <div className="favoriteButton" onClick={changeFavorite}>
+              {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
+            </div>
+            <div>
+              <InvestButton onClick={onClick}>Invest</InvestButton>
+            </div>
+          </ButtonsDiv>
+
+          <TodayContainer>
+            <div>
+              <h2>
+                {currency.name} ({currency.symbol.toUpperCase()})
+              </h2>
+              <h4>Current price: {currency.current_price} USD</h4>
+              <h4>Market cap: {currency.market_cap} USD</h4>
+              <h4>24h Highest: {currency.high_24h} USD</h4>
+              <h4>24h Lowest: {currency.low_24h} USD</h4>
+              <h4>
+                24h Price change: {currency.price_change_percentage_24h} %
+              </h4>
+              <h4>All time high: {currency.ath} USD</h4>
+              <h4>Total volume: {currency.total_volume}</h4>
+            </div>
+            <GraphDiv>
+              <Line
+                data={state}
+                options={{
+                  title: {
+                    display: true,
+                    text: "Crypto prices from the last 30 days",
+                    fontSize: 20,
                   },
-                },
-              }}
-            />
-          </GraphDiv>
-        </TodayContainer>
+                  legend: {
+                    display: false,
+                  },
+                  elements: {
+                    point: {
+                      radius: 0,
+                      pointHitRadius: 5,
+                    },
+                  },
+                }}
+              />
+            </GraphDiv>
+          </TodayContainer>
+        </>
       )}
     </div>
   );
@@ -110,6 +129,14 @@ const InvestButton = styled.button`
   border: 0;
   border-radius: 0.5rem;
   cursor: pointer;
+  margin-left: 2rem;
+`;
+
+const ButtonsDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: -2rem;
+  margin-top: -1rem;
 `;
 
 export default CoinDetail;
