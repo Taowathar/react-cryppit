@@ -73,6 +73,7 @@ const TodayDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
   background-color: #f2eee3;
+  margin-top: 8rem;
 `;
 
 const Spin = styled(Spinner)``;
