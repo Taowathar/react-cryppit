@@ -10,11 +10,13 @@ import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
 import PortfolioContext from "./context/PortfolioContext";
 import HistoryContext from "./context/HistoryContext";
+import CryptoDetails from "./components/CryptoDetails";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
   let [modalOpen, setModalOpen] = useState(false);
   let [selectedCrypto, setSelectedCrypto] = useState({});
+  let [cryptoId, setCryptoId] = useState();
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -63,7 +65,6 @@ function App() {
                   </>
                 )}
               />
-
               <Route
                 path="/cryptolist"
                 exact
@@ -95,6 +96,11 @@ function App() {
                     </div>
                   </>
                 )}
+              />
+              <Route
+                path={`/details/${cryptoId}`}
+                exact
+                render={() => <CryptoDetails />}
               />
               <Route
                 path="/favorites"
