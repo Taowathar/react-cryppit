@@ -14,8 +14,11 @@ function Navbar() {
         <NavDiv className="CryptoList">
           <NavLink to="/cryptolist">Crypto List</NavLink>
         </NavDiv>
-        <NavDiv className="Trade">
-          <NavLink to="/trade">Trade</NavLink>
+        <NavDiv className="Portfolio">
+          <NavLink to="/portfolio">Portfolio</NavLink>
+        </NavDiv>
+        <NavDiv className="History">
+          <NavLink to="/history">Trade history</NavLink>
         </NavDiv>
         <NavDiv className="Trade">
           <NavLink to="/favorites">Favorites</NavLink>
