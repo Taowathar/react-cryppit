@@ -138,3 +138,23 @@ table button {
   text-decoration: none;
   color:black;
 }
+
+.details-container {
+  width: 80%;
+  margin-top: 100px;
+  border: 5px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: azure;
+}
+
+.details-container button {
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.details-container.favoriteButton {
+  width: 50px;
+}

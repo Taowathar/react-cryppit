@@ -104,11 +104,13 @@ function App() {
                 path="/details/:cryptoId"
                 exact
                 render={() => (
-                  <CryptoDetails
-                    cryptoId={cryptoId}
-                    openModal={openModal}
-                    isFavorite={isFavorite}
-                  />
+                  <div className="details-container">
+                    <CryptoDetails
+                      cryptoId={cryptoId}
+                      openModal={openModal}
+                      isFavorite={isFavorite}
+                    />
+                  </div>
                 )}
               />
               <Route

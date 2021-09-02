@@ -60,9 +60,10 @@ const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
     <div>
       {hasData && (
         <>
+        <h1>Crypto's details</h1>
           <ButtonsDiv>
             <div className="favoriteButton" onClick={changeFavorite}>
-              {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
+              {favorite ? <AiFillHeart size={50} /> : <AiOutlineHeart size={50} />}
             </div>
             <div>
               <InvestButton onClick={onClick}>Invest</InvestButton>
