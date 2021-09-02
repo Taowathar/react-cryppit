@@ -17,6 +17,7 @@ function App() {
   let [modalOpen, setModalOpen] = useState(false);
   let [selectedCrypto, setSelectedCrypto] = useState({});
   let [cryptoId, setCryptoId] = useState();
+  let [isFavorite, setIsFavorite] = useState();
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -76,6 +77,7 @@ function App() {
                           cryptoList={cryptoList}
                           openModal={openModal}
                           setCryptoId={setCryptoId}
+                          setIsFavorite={setIsFavorite}
                         />
                       )}
                     </div>
@@ -101,14 +103,23 @@ function App() {
               <Route
                 path="/details/:cryptoId"
                 exact
-                render={() => <CryptoDetails />}
+                render={() => (
+                  <CryptoDetails
+                    cryptoId={cryptoId}
+                    openModal={openModal}
+                    isFavorite={isFavorite}
+                  />
+                )}
               />
               <Route
                 path="/favorites"
                 exact
                 render={() => (
                   <div className="table-container">
-                    <FavoriteList setCryptoId={setCryptoId}/>
+                    <FavoriteList
+                      setCryptoId={setCryptoId}
+                      setIsFavorite={setIsFavorite}
+                    />
                   </div>
                 )}
               />
