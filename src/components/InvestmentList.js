@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import Investment from './Investment'
 
-export const InvestmentList = () => {
+export const InvestmentList = ({investments}) => {
     return (
-        <div>
-            hi
+        <div style={{textAlign: 'center'}}>
+            {investments.map(crypto => (<Investment key={crypto.id} crypto={crypto}/>))}
         </div>
     )
 }

@@ -21,7 +21,6 @@ const Crypto = ({
       while (i--) {
         if (keys[i][0] === 'f') {
           values.push(JSON.parse(localStorage.getItem(keys[i])).id);
-          
         }
       }
       
@@ -56,7 +55,7 @@ const Crypto = ({
 
   return (
     <tr>
-      <td style={{ padding: "10px" }}>
+      <td style={{ transform: 'translate(28%, 8%)' }}>
         <div className="favoriteButton" onClick={changeFavorite}>
           {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
         </div>

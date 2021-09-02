@@ -36,9 +36,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     const [cryptoAmount, setCryptoAmount] = useState(1);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const history = JSON.parse(localStorage.getItem('history'));
-    console.log(history);
     let balance = localStorage.getItem('balance');
-    console.log(JSON.parse(localStorage.getItem('portfolio')));     
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     const [overBalance, setOverBalance] = useState('false');
     const [errorMessage, setErrorMessage] = useState('');
@@ -129,7 +127,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
 
         
         <form onSubmit={buy}>
-            <label style={{display: 'block', fontStyle: 'italic', fontSize: '12px', paddingBottom: '6px'}}>Balance: ${balance}</label>
+            <label style={{display: 'block', fontStyle: 'italic', fontSize: '18px', paddingBottom: '6px'}}>Balance: ${balance}</label>
             <div className="currency-input" currency="USD">
           <InputNumber id='usd-input' style={overBalance ? {backgroundColor: '#ff8080', fontSize: '16px', width: '150px'} : {backgroundColor: 'white', fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd} max={portfolio['balance']}/>
           </div>

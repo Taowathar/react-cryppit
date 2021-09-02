@@ -20,7 +20,7 @@ const FavoriteList = ({ setCryptoId, setIsFavorite }) => {
     };
 
     setFavorites(getAllItemFromLocalStorage());
-  }, [storage]);
+  }, []);
 
   return (
     <div className="table-container">

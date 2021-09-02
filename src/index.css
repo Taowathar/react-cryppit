@@ -33,7 +33,7 @@ code {
 .previous {
   padding: 10px;
   border-radius: 6px;
-  margin-right: 10px;
+  margin-right: 0px;
   cursor: pointer;
 }
 
@@ -132,6 +132,10 @@ table button {
   border: 1px;
   text-transform: uppercase;
   transform: translateY(-60%);
+}
+
+ul {
+  padding-inline-start: 0px;
 }
 
 .detail-link {
