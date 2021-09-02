@@ -54,7 +54,6 @@ const NavBar = styled.nav`
 const Image = styled.img`
   height: 40px;
   width: 100px;
-  margin-top: 0.5rem;
   margin-left: -1rem;
 `;
 
