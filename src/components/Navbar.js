@@ -31,6 +31,7 @@ function Navbar() {
 const NavDiv = styled.div`
   float: left;
   margin-top: 0.5rem;
+  padding-bottom: 0.4rem;
 `;
 
 const NavLink = styled(Link)`

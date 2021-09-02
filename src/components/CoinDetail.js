@@ -16,6 +16,18 @@ const CoinDetail = ({ crypto, openModal }) => {
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
   const [favorite, setfavorite] = useState(false);
 
+  if (fetchedCryptoData) {
+    cryptoData = fetchedCryptoData;
+  }
+
+  if (cryptoData != null) {
+    hasData = true;
+    for (let detail of cryptoData.prices) {
+      dates.push(timeConverter(detail[0]));
+      prices.push(detail[1]);
+    }
+  }
+
   useEffect(() => {
     const getAllItemFromLocalStorage = () => {
       let values = [],
@@ -43,18 +55,6 @@ const CoinDetail = ({ crypto, openModal }) => {
       localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
     }
   };
-
-  if (fetchedCryptoData) {
-    cryptoData = fetchedCryptoData;
-  }
-
-  if (cryptoData != null) {
-    hasData = true;
-    for (let detail of cryptoData.prices) {
-      dates.push(timeConverter(detail[0]));
-      prices.push(detail[1]);
-    }
-  }
 
   function onClick() {
     openModal(crypto);
@@ -91,6 +91,15 @@ const CoinDetail = ({ crypto, openModal }) => {
           <TodayContainer>
             <div>
               <h2>
+                <img
+                  src={crypto.image}
+                  alt="logo"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    marginRight: "0.4rem",
+                  }}
+                />
                 {crypto.name} ({crypto.symbol.toUpperCase()})
               </h2>
               <h4>Current price: {crypto.current_price} USD</h4>
@@ -157,8 +166,8 @@ const InvestButton = styled.button`
 const ButtonsDiv = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: -2rem;
   margin-top: -1rem;
+  margin-bottom: 1.5rem;
 `;
 
 export default CoinDetail;
