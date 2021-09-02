@@ -1,5 +1,4 @@
 import { useAxiosGet } from "../hooks/axiosGet";
-import { useEffect } from 'react'
 import CoinDetail from "./CoinDetail";
 import Loading from './Loading'
 import styled from 'styled-components'
@@ -9,22 +8,6 @@ function TodayCoin({ openModal }) {
   let hasCurr = false;
   let randomCurr = null;
   
-  
-
-  // const dailyCryptoIndex = getDailyCryptoIndex()
-  // console.log(dailyCryptoIndex);
-  // let cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1&page=${dailyCryptoIndex}&sparkline=false`;
-  // const [, fetchedCryptoList] = useAxiosGet(cryptoListURL, []);
-  // console.log(hasCurr);
-  // if (fetchedCryptoList) {
-  //   cryptoList = fetchedCryptoList;
-  // }
-  
-  // if (cryptoList != null) {
-  //   randomCurr =  hasCurr ? randomCurr: cryptoList[0];
-  //   hasCurr = true;
-  // }
-  // 
   const dailyCryptoIndex = getDailyCryptoIndex()
   let cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1&page=${dailyCryptoIndex}&sparkline=false`;
 

@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react'
 import { useAxiosGet } from '../hooks/axiosGet';
 import InvestmentList from './InvestmentList';

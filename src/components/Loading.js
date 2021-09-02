@@ -2,8 +2,6 @@ import React from 'react'
 import logo from "../img/clogo.jpg";
 import styled, { keyframes } from "styled-components";
 
-
-
 const spin = keyframes`
 from {
   transform: rotate(0deg);
@@ -23,10 +21,9 @@ const Image = styled.img`
 
 
 const Loading = ({marginLeft, marginTop}) => {
-     
     return (
         <div
-          class="d-flex justify-content-center"
+          className="d-flex justify-content-center"
           style={{ marginLeft: `${marginLeft}rem`, marginTop: `${marginTop}rem`, }}
         >
           <h1>

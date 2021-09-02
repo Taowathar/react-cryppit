@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react'
 import Investment from './Investment'
 
 export const InvestmentList = ({investments, openModal}) => {
