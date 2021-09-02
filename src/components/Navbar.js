@@ -24,9 +24,9 @@ function Navbar() {
           <NavLink to="/favorites">Favorites</NavLink>
         </NavDiv>
         <NavDiv className="Balance">
-          <h4 style={{ marginLeft: "54rem", paddingTop: "0.5rem" }}>
+          <h1 style={{ marginLeft: "54rem" }}>
             Balance: ${localStorage.getItem("balance")}
-          </h4>
+          </h1>
         </NavDiv>
       </NavBar>
     </div>
@@ -35,8 +35,7 @@ function Navbar() {
 
 const NavDiv = styled.div`
   float: left;
-  margin-top: 0.5rem;
-  padding-bottom: 0.4rem;
+  padding-top: 1rem;
 `;
 
 const NavLink = styled(Link)`
