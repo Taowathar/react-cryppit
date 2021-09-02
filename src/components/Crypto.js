@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import styled from 'styled-components';
+import { InvestButton } from "./InvestButton";
 
-
-const Crypto = ({crypto, openModal, isFavorite}) => {
+const Crypto = ({ crypto, openModal, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
 
   useEffect(() => {
@@ -27,19 +26,10 @@ const Crypto = ({crypto, openModal, isFavorite}) => {
       setfavorite(true);
     }
   }, []);
-  
-  const InvestButton = styled.button`
-    padding: 8px;
-    background-color: #0bba0b;
-    color: white;
-    border: 0;
-    border-radius: .5rem;
-    cursor: pointer;
-    `
 
-const changeFavorite = () => {
-  setfavorite(!favorite);
-  if (favorite) {
+  const changeFavorite = () => {
+    setfavorite(!favorite);
+    if (favorite) {
       localStorage.removeItem(`favorite ${crypto.id}`);
     } else {
       localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
@@ -54,22 +44,34 @@ const changeFavorite = () => {
 
   return (
     <tr>
-      <td style={{padding: '10px'}}>
+      <td style={{ padding: "10px" }}>
         <div className="favoriteButton" onClick={changeFavorite}>
           {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
         </div>
       </td>
-      <td > 
+      <td>
         <div className="table-data-name">
           <img className="crypto-img" src={crypto.image} alt="logo" />
-          <span style={{transform: 'translateY(10%)'}}>{crypto.name}</span>
+          <span style={{ transform: "translateY(10%)" }}>{crypto.name}</span>
         </div>
       </td>
       <td className="crypto-symbol">{crypto.symbol}</td>
-      <td style={{textAlign: 'right', padding: '10px'}}>${crypto.current_price.toFixed(2)}</td>
-      
-      <td style={change < 0 ? {color: 'red', textAlign: 'right', padding: '10px'} : {color: 'green', textAlign: 'right', padding: '10px' }}>{change < 0 ? change.toFixed(2): `+${change.toFixed(2)}`}%</td>
-      <td><InvestButton onClick={onClick}>Invest</InvestButton></td>
+      <td style={{ textAlign: "right", padding: "10px" }}>
+        ${crypto.current_price.toFixed(2)}
+      </td>
+
+      <td
+        style={
+          change < 0
+            ? { color: "red", textAlign: "right", padding: "10px" }
+            : { color: "green", textAlign: "right", padding: "10px" }
+        }
+      >
+        {change < 0 ? change.toFixed(2) : `+${change.toFixed(2)}`}%
+      </td>
+      <td className="investButton">
+        <InvestButton onClick={onClick}>Invest</InvestButton>
+      </td>
     </tr>
   );
 };
