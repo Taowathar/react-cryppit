@@ -14,14 +14,14 @@ function Navbar() {
         <NavDiv className="CryptoList">
           <NavLink to="/cryptolist">Crypto List</NavLink>
         </NavDiv>
+        <NavDiv className="Trade">
+          <NavLink to="/favorites">Favorites</NavLink>
+        </NavDiv>
         <NavDiv className="Portfolio">
           <NavLink to="/portfolio">Portfolio</NavLink>
         </NavDiv>
         <NavDiv className="History">
           <NavLink to="/history">Trade history</NavLink>
-        </NavDiv>
-        <NavDiv className="Trade">
-          <NavLink to="/favorites">Favorites</NavLink>
         </NavDiv>
         <NavDiv className="Balance">
           <h1 style={{ marginLeft: "53rem", transform: 'translateY(-70%)' }}>

@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import styled from "styled-components";
 import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import Loading from "./Loading";
 
 const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
@@ -58,9 +59,14 @@ const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
 
   return (
     <div>
+      <h1>Crypto's details</h1>
+      {!hasData && (
+        <Loading marginLeft='0'/>
+      )
+      
+      }
       {hasData && (
         <>
-        <h1>Crypto's details</h1>
           <ButtonsDiv>
             <div className="favoriteButton" onClick={changeFavorite}>
               {favorite ? <AiFillHeart size={50} /> : <AiOutlineHeart size={50} />}
