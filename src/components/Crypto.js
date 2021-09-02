@@ -3,7 +3,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { InvestButton } from "./InvestButton";
 
-const Crypto = ({ crypto, openModal, isFavorite }) => {
+const Crypto = ({ crypto, openModal, isFavorite, setCryptoId }) => {
   const [favorite, setfavorite] = useState(isFavorite);
 
   useEffect(() => {
@@ -34,6 +34,10 @@ const Crypto = ({ crypto, openModal, isFavorite }) => {
     }
   };
 
+  const setId = () => {
+    setCryptoId(Crypto.id)
+  }
+
   function onClick() {
     openModal(crypto);
   }
@@ -48,7 +52,7 @@ const Crypto = ({ crypto, openModal, isFavorite }) => {
         </div>
       </td>
       <td>
-        <Link className="detail-link" to={`/details/${crypto.id}`}>
+        <Link className="detail-link" to={`/details/${crypto.id}`} onClick={setId}>
         <div className="table-data-name">
           <img className="crypto-img" src={crypto.image} alt="logo" />
           <span style={{ transform: "translateY(10%)" }}>{crypto.name}</span>

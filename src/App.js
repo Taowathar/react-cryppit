@@ -75,6 +75,7 @@ function App() {
                         <CryptoList
                           cryptoList={cryptoList}
                           openModal={openModal}
+                          setCryptoId={setCryptoId}
                         />
                       )}
                     </div>
@@ -107,7 +108,7 @@ function App() {
                 exact
                 render={() => (
                   <div className="table-container">
-                    <FavoriteList />
+                    <FavoriteList setCryptoId={setCryptoId}/>
                   </div>
                 )}
               />
