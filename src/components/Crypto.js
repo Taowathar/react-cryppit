@@ -17,14 +17,17 @@ const Crypto = ({
       let values = [],
         keys = Object.keys(localStorage),
         i = keys.length;
-
+        
       while (i--) {
-        values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+        if (keys[i][0] === 'f') {
+          values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+          
+        }
       }
-
+      
       return values;
     };
-
+    
     let storage = getAllItemFromLocalStorage();
     if (storage.includes(crypto.id)) {
       setfavorite(true);
@@ -48,7 +51,7 @@ const Crypto = ({
   function onClick() {
     openModal(crypto);
   }
-
+  
   const change = crypto.price_change_percentage_24h;
 
   return (

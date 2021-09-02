@@ -11,7 +11,9 @@ const FavoriteList = ({ setCryptoId, setIsFavorite }) => {
         i = keys.length;
 
       while (i--) {
-        storage.push(JSON.parse(localStorage.getItem(keys[i])));
+        if (keys[i].includes("favorite")) {
+          storage.push(JSON.parse(localStorage.getItem(keys[i])));
+        }
       }
 
       return storage;

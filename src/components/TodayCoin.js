@@ -29,10 +29,7 @@ function TodayCoin({ openModal }) {
       <Title>Today's coin</Title>
       {hasCurr && (
         <div className="todayCoin">
-          <CoinDetail
-            currency={randomCurr}
-            openModal={openModal}
-          ></CoinDetail>
+          <CoinDetail crypto={randomCurr} openModal={openModal}></CoinDetail>
         </div>
       )}
     </TodayDiv>
@@ -48,6 +45,7 @@ const TodayDiv = styled.div`
   margin: 3rem;
   max-width: 75rem;
   margin-left: 17rem;
+  background-color: #f2eee3;
 `;
 
 export default TodayCoin;

@@ -2,22 +2,46 @@ import { useAxiosGet } from "../hooks/axiosGet";
 import { timeConverter } from "../converters/UnixTimeConverter";
 import { Line } from "react-chartjs-2";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const CoinDetail = ({ currency, openModal }) => {
+const CoinDetail = ({ crypto, openModal }) => {
   let cryptoData = null;
   let hasData = false;
   let dates = [];
   let prices = [];
 
-  let dataUrl = `https://api.coingecko.com/api/v3/coins/${currency.id}/market_chart?vs_currency=usd&days=30&interval=daily`;
+  let dataUrl = `https://api.coingecko.com/api/v3/coins/${crypto.id}/market_chart?vs_currency=usd&days=30&interval=daily`;
 
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
   const [favorite, setfavorite] = useState(false);
 
+  useEffect(() => {
+    const getAllItemFromLocalStorage = () => {
+      let values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+      while (i--) {
+        values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+      }
+
+      return values;
+    };
+
+    let storage = getAllItemFromLocalStorage();
+    if (storage.includes(crypto.id)) {
+      setfavorite(true);
+    }
+  }, []);
+
   const changeFavorite = () => {
     setfavorite(!favorite);
+    if (favorite) {
+      localStorage.removeItem(`favorite ${crypto.id}`);
+    } else {
+      localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
+    }
   };
 
   if (fetchedCryptoData) {
@@ -33,7 +57,7 @@ const CoinDetail = ({ currency, openModal }) => {
   }
 
   function onClick() {
-    openModal(currency);
+    openModal(crypto);
   }
 
   const state = {
@@ -67,17 +91,15 @@ const CoinDetail = ({ currency, openModal }) => {
           <TodayContainer>
             <div>
               <h2>
-                {currency.name} ({currency.symbol.toUpperCase()})
+                {crypto.name} ({crypto.symbol.toUpperCase()})
               </h2>
-              <h4>Current price: {currency.current_price} USD</h4>
-              <h4>Market cap: {currency.market_cap} USD</h4>
-              <h4>24h Highest: {currency.high_24h} USD</h4>
-              <h4>24h Lowest: {currency.low_24h} USD</h4>
-              <h4>
-                24h Price change: {currency.price_change_percentage_24h} %
-              </h4>
-              <h4>All time high: {currency.ath} USD</h4>
-              <h4>Total volume: {currency.total_volume}</h4>
+              <h4>Current price: {crypto.current_price} USD</h4>
+              <h4>Market cap: {crypto.market_cap} USD</h4>
+              <h4>24h Highest: {crypto.high_24h} USD</h4>
+              <h4>24h Lowest: {crypto.low_24h} USD</h4>
+              <h4>24h Price change: {crypto.price_change_percentage_24h} %</h4>
+              <h4>All time high: {crypto.ath} USD</h4>
+              <h4>Total volume: {crypto.total_volume}</h4>
             </div>
             <GraphDiv>
               <Line
