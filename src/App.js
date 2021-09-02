@@ -99,7 +99,7 @@ function App() {
                 )}
               />
               <Route
-                path={`/details/${cryptoId}`}
+                path="/details/:cryptoId"
                 exact
                 render={() => <CryptoDetails />}
               />
