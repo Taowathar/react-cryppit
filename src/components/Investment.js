@@ -4,6 +4,7 @@ import { timeConverter } from "../converters/UnixTimeConverter";
 import { InvestButton } from './InvestButton'
 import styled from 'styled-components'
 import { Line } from "react-chartjs-2";
+import Loading from './Loading';
 
 
 const Investment = ({crypto}) => {
@@ -43,6 +44,9 @@ const Investment = ({crypto}) => {
 
     return (
         <div style={{margin: '50px', display: 'inline-block', width: '800px', height: '450px', border: '2px solid black', background: '#f2eee3'}}>
+            { !details && (
+                <Loading marginTop="10"></Loading>
+            )}
             { details && 
             <>
             <div style={{display: 'block', height: '80px'}}>

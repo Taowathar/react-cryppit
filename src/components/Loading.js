@@ -22,12 +22,12 @@ const Image = styled.img`
 `;
 
 
-const Loading = ({marginLeft}) => {
-    
+const Loading = ({marginLeft, marginTop}) => {
+     
     return (
         <div
           class="d-flex justify-content-center"
-          style={{ marginLeft: `${marginLeft}rem`, marginTop: "2rem", }}
+          style={{ marginLeft: `${marginLeft}rem`, marginTop: `${marginTop}rem`, }}
         >
           <h1>
             {" "}

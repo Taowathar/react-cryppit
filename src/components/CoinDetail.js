@@ -3,7 +3,8 @@ import { timeConverter } from "../converters/UnixTimeConverter";
 import { Line } from "react-chartjs-2";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
+import Loading from './Loading'
 
 const CoinDetail = ({ crypto, openModal }) => {
   let cryptoData = null;
@@ -79,6 +80,9 @@ const CoinDetail = ({ crypto, openModal }) => {
 
   return (
     <div>
+      {!hasData && (
+        <Loading marginLeft="33.5"></Loading>
+      )}
       {hasData && (
         <>
           <ButtonsDiv>
