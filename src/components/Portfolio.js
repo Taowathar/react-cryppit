@@ -6,7 +6,7 @@ import ReactPaginate from 'react-paginate';
 import Loading from './Loading';
 
 
-const Portfolio = () => {
+const Portfolio = ({openModal}) => {
     const portfolio = JSON.parse(localStorage.getItem('portfolio'));
     let sum = 0;
     let totalPrice = 0;
@@ -76,7 +76,7 @@ const Portfolio = () => {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 })}</h3>
-            <InvestmentList investments={investmentsToDisplay}></InvestmentList>
+            <InvestmentList investments={investmentsToDisplay} openModal={openModal}></InvestmentList>
             <div className="pagination-field">
                       <ReactPaginate
                         initialPage={0}

@@ -7,7 +7,7 @@ import { Line } from "react-chartjs-2";
 import Loading from './Loading';
 
 
-const Investment = ({crypto}) => {
+const Investment = ({crypto, openModal}) => {
     const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto.id}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
     const [, fetchedDetails] = useAxiosGet(url, []);
     let details = null;
@@ -51,7 +51,7 @@ const Investment = ({crypto}) => {
             <>
             <div style={{display: 'block', height: '80px'}}>
                 <InvestButton style={{padding: '10px', fontSize: '20px', width: '100px', margin: '10px 20px 10px 10px', float: 'right', transform: 'translateY(20%)'}}>Sell</InvestButton>
-                <InvestButton style={{padding: '10px', fontSize: '20px', width: '120px', margin: '10px', float: 'right', transform: 'translateY(20%)'}}>Buy more</InvestButton>
+                <InvestButton style={{padding: '10px', fontSize: '20px', width: '120px', margin: '10px', float: 'right', transform: 'translateY(20%)'}} onClick={() => openModal(details)}>Buy more</InvestButton>
                 <h1 style={{display: 'inline-block', textAlign: 'center', float: 'right', marginRight: '50px', transform: 'translateY(-12%)' }}><img src={details.image} alt="logo"  style={{width: '50px', height: '50px', paddingRight: '20px'}}/><div style={{display: 'inline-block', transform: 'translateY(-30%)'}}>{details.name} <span style={{textTransform: 'uppercase'}}>({details.symbol})</span></div></h1>
                 
 

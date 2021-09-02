@@ -77,6 +77,7 @@ function App() {
                           cryptoList={cryptoList}
                           openModal={openModal}
                           setCryptoId={setCryptoId}
+                          setSelectedCrypto={setSelectedCrypto}
                           setIsFavorite={setIsFavorite}
                         />
                       )}
@@ -106,6 +107,7 @@ function App() {
                 render={() => (
                   <div className="details-container">
                     <CryptoDetails
+                      selectedCrypto={selectedCrypto}
                       cryptoId={cryptoId}
                       openModal={openModal}
                       isFavorite={isFavorite}
@@ -119,7 +121,9 @@ function App() {
                 render={() => (
                   <div className="table-container">
                     <FavoriteList
+                      openModal={openModal}    
                       setCryptoId={setCryptoId}
+                      setSelectedCrypto={setSelectedCrypto}
                       setIsFavorite={setIsFavorite}
                     />
                   </div>
@@ -128,7 +132,9 @@ function App() {
               <Route
                 path="/portfolio"
                 exact
-                render={() => <Portfolio/>}
+                render={() => <Portfolio
+                  openModal={openModal}
+                  />}
               />
 
             </Switch>

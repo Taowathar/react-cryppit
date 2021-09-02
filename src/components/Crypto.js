@@ -9,6 +9,7 @@ const Crypto = ({
   isFavorite,
   setCryptoId,
   setIsFavorite,
+  setSelectedCrypto
 }) => {
   const [favorite, setfavorite] = useState(isFavorite);
 
@@ -44,6 +45,7 @@ const Crypto = ({
 
   const setId = () => {
     setCryptoId(crypto.id);
+    setSelectedCrypto(crypto);
     setIsFavorite(favorite);
   };
 

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import Loading from "./Loading";
 
-const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
+const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
   const cryptoURL = `https://api.coingecko.com/api/v3/coins/${cryptoId}`;
   const cryptoDataURL = `https://api.coingecko.com/api/v3/coins/${cryptoId}/market_chart?vs_currency=usd&days=30&interval=daily`;
@@ -37,10 +37,7 @@ const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
       prices.push(detail[1]);
     }
   }
-
-  function onClick() {
-    openModal(crypto);
-  }
+  console.log(cryptoData);
 
   const state = {
     labels: dates,
@@ -72,7 +69,7 @@ const CryptoDetails = ({ cryptoId, openModal, isFavorite }) => {
               {favorite ? <AiFillHeart size={50} /> : <AiOutlineHeart size={50} />}
             </div>
             <div>
-              <InvestButton onClick={onClick}>Invest</InvestButton>
+              <InvestButton onClick={() => openModal(selectedCrypto)}>Invest</InvestButton>
             </div>
           </ButtonsDiv>
 

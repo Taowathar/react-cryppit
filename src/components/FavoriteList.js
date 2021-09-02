@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Crypto from "./Crypto";
 
-const FavoriteList = ({ setCryptoId, setIsFavorite }) => {
+const FavoriteList = ({ setCryptoId, setIsFavorite, openModal, setSelectedCrypto }) => {
   let [favorites, setFavorites] = useState([]);
   let storage = [];
 
@@ -48,11 +48,13 @@ const FavoriteList = ({ setCryptoId, setIsFavorite }) => {
           {favorites &&
             favorites.map((crypto) => (
               <Crypto
+                openModal={openModal}
                 key={crypto.id}
                 crypto={crypto}
                 isFavorite={true}
                 setCryptoId={setCryptoId}
                 setIsFavorite={setIsFavorite}
+                setSelectedCrypto={setSelectedCrypto}
               />
             ))}
         </tbody>
