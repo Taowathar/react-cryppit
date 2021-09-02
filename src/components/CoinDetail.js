@@ -81,7 +81,7 @@ const CoinDetail = ({ crypto, openModal }) => {
         <>
           <ButtonsDiv>
             <div className="favoriteButton" onClick={changeFavorite}>
-              {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
+              {favorite ? <AiFillHeart size={30} /> : <AiOutlineHeart size={30} />}
             </div>
             <div>
               <InvestButton onClick={onClick}>Invest</InvestButton>
