@@ -28,7 +28,7 @@ const Portfolio = () => {
     }
     
         
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const investmentsPerPage = 2;
     const pageCount = Math.ceil(Object.keys(portfolio).length / investmentsPerPage);
     
@@ -39,7 +39,7 @@ const Portfolio = () => {
     for (let i = startIndex; i < maxIndex; i++) {
         investmentsToDisplay.push(investmentList[i]);
     }
-    console.log(investmentsToDisplay);
+    console.log(currentPage, investmentsToDisplay, investmentList, maxIndex);
     
 
     const handlePageChange = (selectedObject) => {
@@ -61,7 +61,7 @@ const Portfolio = () => {
             <h3 style={{textAlign: 'center', marginBottom: '5px'}}>Remaining balance: ${balance}</h3>
             <h3 style={{textAlign: 'center', marginTop: '5px'}}>Total funds: ${+(balance + sum).toFixed(2)}</h3>
             <InvestmentList investments={investmentsToDisplay}></InvestmentList>
-            <div className="pagination-field">
+            <div className="pagination-field" style={{}}>
                       <ReactPaginate
                         initialPage={0}
                         pageCount={pageCount}
