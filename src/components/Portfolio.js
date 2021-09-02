@@ -1,9 +1,8 @@
 
-import React, {useContext, useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useAxiosGet } from '../hooks/axiosGet';
 import InvestmentList from './InvestmentList';
 import ReactPaginate from 'react-paginate';
-import Loading from './Loading';
 
 
 const Portfolio = ({openModal}) => {
@@ -15,7 +14,6 @@ const Portfolio = ({openModal}) => {
     const ids = Object.keys(portfolio);
     const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join('%2C')}&vs_currencies=usd`;
     const [, fetchedPrices] = useAxiosGet(url, [1]);
-    let hasLoaded = false;
 
     
     const getSortedInvestmentList = () => {
@@ -41,7 +39,6 @@ const Portfolio = ({openModal}) => {
     for (let i = startIndex; i < maxIndex; i++) {
         investmentsToDisplay.push(investmentList[i]);
     }
-    console.log(currentPage, investmentsToDisplay, investmentList, maxIndex);
     
 
     const handlePageChange = (selectedObject) => {
@@ -54,7 +51,6 @@ const Portfolio = ({openModal}) => {
             sum += portfolio[id].amount * fetchedPrices[id].usd;
             totalPrice += portfolio[id].price;
         });
-        hasLoaded = true;
     }
     
     return (
