@@ -112,13 +112,13 @@ const CoinDetail = ({ crypto, openModal }) => {
                 />
                 {crypto.name} ({crypto.symbol.toUpperCase()})
               </h2>
-              <h4>Current price: {crypto.current_price} USD</h4>
-              <h4>Market cap: {crypto.market_cap} USD</h4>
-              <h4>24h Highest: {crypto.high_24h} USD</h4>
-              <h4>24h Lowest: {crypto.low_24h} USD</h4>
-              <h4>24h Price change: {crypto.price_change_percentage_24h} %</h4>
-              <h4>All time high: {crypto.ath} USD</h4>
-              <h4>Total volume: {crypto.total_volume}</h4>
+              <h4>Current price: {crypto.current_price.toLocaleString()} USD</h4>
+              <h4>Market cap: {crypto.market_cap.toLocaleString()} USD</h4>
+              <h4>24h Highest: {crypto.high_24h.toLocaleString()} USD</h4>
+              <h4>24h Lowest: {crypto.low_24h.toLocaleString()} USD</h4>
+              <h4>24h Price change: {crypto.price_change_percentage_24h.toLocaleString()} %</h4>
+              <h4>All time high: {crypto.ath.toLocaleString()} USD</h4>
+              <h4>Total volume: {crypto.total_volume.toLocaleString()}</h4>
             </div>
             <GraphDiv>
               <Line

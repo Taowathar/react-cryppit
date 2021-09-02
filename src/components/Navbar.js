@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../img/cryplogo.jpg";
 
 function Navbar() {
+  const balance = parseFloat(localStorage.getItem('balance'));
   return (
     <div className="navBar">
       <NavBar>
@@ -25,7 +26,10 @@ function Navbar() {
         </NavDiv>
         <NavDiv className="Balance">
           <h1 style={{ marginLeft: "53rem", transform: 'translateY(-70%)' }}>
-            Balance: ${localStorage.getItem("balance")}
+            Balance: ${balance.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}
           </h1>
         </NavDiv>
       </NavBar>

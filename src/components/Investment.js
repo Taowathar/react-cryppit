@@ -60,14 +60,41 @@ const Investment = ({crypto}) => {
                 <h1 style={details.current_price > crypto.price / crypto.amount ? {color: 'green', paddingLeft: '10px', textAlign: 'center', marginTop: '0', transform: 'translateX(-20%)'} : {color: 'red', paddingLeft: '10px', textAlign: 'center', marginTop: '0', transform: 'translateX(-20%)'}}><span style={{float: 'right'}}>{details.current_price > crypto.price / crypto.amount ? '+' : ''}{crypto.price / crypto.amount === 0 ? '0.00' : ((details.current_price/(crypto.price/crypto.amount)-1)*100).toFixed(2)}%</span></h1>
             </div>
             <div style={{display: 'block', textAlign: 'left', marginLeft: '20px', transform: 'translateY(-0px)'}}>
-                <h3>Amount owned: {crypto.amount}</h3>
-                <h3>Value when bought: ${crypto.price.toFixed(2)} (${(crypto.price / crypto.amount).toFixed(2)} per)</h3>
-                <h3>Current value: ${(details.current_price * crypto.amount).toFixed(2)} (${(details.current_price).toFixed(2)} per) </h3>
-                <h3>Market cap: ${details.market_cap.toFixed(2)}</h3>
-                <h3>24h Price change: {details.price_change_percentage_24h.toFixed(2)}%</h3>
-                <h3>24h Highest: ${details.high_24h.toFixed(2)}</h3>
-                <h3>24h Lowest: ${details.low_24h.toFixed(2)}</h3>
-                <h3>All time high: ${details.ath.toFixed(2)}</h3>
+                <h3>Amount owned: {crypto.amount.toLocaleString()}</h3>
+                <h3>Value when bought: ${crypto.price.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})} (${(crypto.price / crypto.amount).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })} per)</h3>
+                <h3>Current value: ${(details.current_price * crypto.amount).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})} (${(details.current_price).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })} per) </h3>
+                <h3>Market cap: ${details.market_cap.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</h3>
+                <h3>24h Price change: {details.price_change_percentage_24h.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}%</h3>
+                <h3>24h Highest: ${details.high_24h.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</h3>
+                <h3>24h Lowest: ${details.low_24h.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</h3>
+                <h3>All time high: ${details.ath.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</h3>
             <GraphDiv>
               <Line
                 data={state}

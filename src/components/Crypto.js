@@ -74,7 +74,10 @@ const Crypto = ({
       </td>
       <td className="crypto-symbol">{crypto.symbol}</td>
       <td style={{ textAlign: "right", padding: "10px" }}>
-        ${crypto.current_price.toFixed(2)}
+        ${(crypto.current_price.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+}))}
       </td>
 
       <td
@@ -84,7 +87,13 @@ const Crypto = ({
             : { color: "green", textAlign: "right", padding: "10px" }
         }
       >
-        {change < 0 ? change.toFixed(2) : `+${change.toFixed(2)}`}%
+        {change < 0 ? change.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+}) : `+${change.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}`}%
       </td>
       <td className="investButton">
         <InvestButton onClick={onClick}>Invest</InvestButton>

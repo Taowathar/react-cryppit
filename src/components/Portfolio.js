@@ -61,9 +61,21 @@ const Portfolio = () => {
         <div>
             <h1 style={{textAlign: 'center', fontSize: '36px'}}>Portfolio</h1>
 
-                <h2 style={{textAlign: 'center'}}>Value: ${sum.toFixed(2)} <span style={sum > totalPrice ? {color: 'green', paddingLeft: '10px'} : {color: 'red', paddingLeft: '10px'}}>{sum > totalPrice ? '+' : ''}{totalPrice === 0 ? '0.00' : ((sum/totalPrice-1)*100).toFixed(2)}%</span></h2>
-            <h3 style={{textAlign: 'center', marginBottom: '5px'}}>Remaining balance: ${balance}</h3>
-            <h3 style={{textAlign: 'center', marginTop: '5px'}}>Total funds: ${+(balance + sum).toFixed(2)}</h3>
+                <h2 style={{textAlign: 'center'}}>Value: ${sum.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})} <span style={sum > totalPrice ? {color: 'green', paddingLeft: '10px'} : {color: 'red', paddingLeft: '10px'}}>{sum > totalPrice ? '+' : ''}{totalPrice === 0 ? '0.00' : ((sum/totalPrice-1)*100).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}%</span></h2>
+            <h3 style={{textAlign: 'center', marginBottom: '5px'}}>Remaining balance: ${balance.toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</h3>
+            <h3 style={{textAlign: 'center', marginTop: '5px'}}>Total funds: ${(balance + sum).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})}</h3>
             <InvestmentList investments={investmentsToDisplay}></InvestmentList>
             <div className="pagination-field">
                       <ReactPaginate
