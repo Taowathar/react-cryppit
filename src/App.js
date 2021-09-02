@@ -1,5 +1,5 @@
 import ReactPaginate from "react-paginate";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { useAxiosGet } from "./hooks/axiosGet";
@@ -8,12 +8,16 @@ import FavoriteList from "./components/FavoriteList";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
+import CryptoDetails from "./components/CryptoDetails";
 import Portfolio from "./components/Portfolio";
+
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
   let [modalOpen, setModalOpen] = useState(false);
   let [selectedCrypto, setSelectedCrypto] = useState({});
+  let [cryptoId, setCryptoId] = useState();
+  let [isFavorite, setIsFavorite] = useState();
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -62,7 +66,6 @@ function App() {
                   </>
                 )}
               />
-
               <Route
                 path="/cryptolist"
                 exact
@@ -73,6 +76,8 @@ function App() {
                         <CryptoList
                           cryptoList={cryptoList}
                           openModal={openModal}
+                          setCryptoId={setCryptoId}
+                          setIsFavorite={setIsFavorite}
                         />
                       )}
                     </div>
@@ -96,11 +101,27 @@ function App() {
                 )}
               />
               <Route
+                path="/details/:cryptoId"
+                exact
+                render={() => (
+                  <div className="details-container">
+                    <CryptoDetails
+                      cryptoId={cryptoId}
+                      openModal={openModal}
+                      isFavorite={isFavorite}
+                    />
+                  </div>
+                )}
+              />
+              <Route
                 path="/favorites"
                 exact
                 render={() => (
                   <div className="table-container">
-                    <FavoriteList />
+                    <FavoriteList
+                      setCryptoId={setCryptoId}
+                      setIsFavorite={setIsFavorite}
+                    />
                   </div>
                 )}
               />
