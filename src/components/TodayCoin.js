@@ -1,4 +1,5 @@
 import { useAxiosGet } from "../hooks/axiosGet";
+import { useEffect } from 'react'
 import CoinDetail from "./CoinDetail";
 import Loading from './Loading'
 import styled from 'styled-components'
@@ -8,16 +9,22 @@ function TodayCoin({ openModal }) {
   let hasCurr = false;
   let randomCurr = null;
   
-  // const getDailyCryptoIndex = () => {
-  //   const currentTime = Date.now();
-  //   const currentDay = Math.floor(currentTime/1000/60/60/24);
-  //   const seedrandom = require('seedrandom')
-  //   const rng = seedrandom(currentDay);
-  //   const cryptosToChooseFrom = 1000;
-  //   const dailyCryptoIndex = Math.floor(rng()*cryptosToChooseFrom) + 1;
-  //   return dailyCryptoIndex;
-  // }
+  
 
+  // const dailyCryptoIndex = getDailyCryptoIndex()
+  // console.log(dailyCryptoIndex);
+  // let cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1&page=${dailyCryptoIndex}&sparkline=false`;
+  // const [, fetchedCryptoList] = useAxiosGet(cryptoListURL, []);
+  // console.log(hasCurr);
+  // if (fetchedCryptoList) {
+  //   cryptoList = fetchedCryptoList;
+  // }
+  
+  // if (cryptoList != null) {
+  //   randomCurr =  hasCurr ? randomCurr: cryptoList[0];
+  //   hasCurr = true;
+  // }
+  // 
   const dailyCryptoIndex = getDailyCryptoIndex()
   let cryptoListURL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1&page=${dailyCryptoIndex}&sparkline=false`;
 
@@ -28,9 +35,23 @@ function TodayCoin({ openModal }) {
   }
 
   if (cryptoList != null) {
+    if (!localStorage.getItem('dailyCrypto')) { 
+      let newDailyCrypto = {'crypto' : '', 'updated': 0} 
+      localStorage.setItem('dailyCrypto', JSON.stringify(newDailyCrypto));
+    }
+    let dailyCrypto = JSON.parse(localStorage.getItem('dailyCrypto'))
+    if (dailyCrypto.updated === milliSecondToDay(Date.now())) {
+      randomCurr = dailyCrypto.crypto;
+    } else {
+      randomCurr = cryptoList[0];
+    }
     hasCurr = true;
-    randomCurr = cryptoList[0];
-  }
+    
+    let newFetchedDailyCrypto = {'crypto' : randomCurr, 'updated': milliSecondToDay(Date.now())} 
+    localStorage.setItem('dailyCrypto', JSON.stringify(newFetchedDailyCrypto));
+  }    
+  
+  
 
   return (
       <TodayDiv>
