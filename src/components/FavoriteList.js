@@ -20,7 +20,7 @@ const FavoriteList = () => {
     };
 
     setFavorites(getAllItemFromLocalStorage());
-  }, [storage]);
+  }, []);
 
   return (
     <div className="table-container">

@@ -6,10 +6,10 @@ const CryptoList = ({ cryptoList, openModal }) => {
       <table>
         <thead >
           <tr id="table-head">
-            <th className="table-column-favorite"></th>
-            <th className="table-column-logo" style={{textAlign: 'left', transform: 'translateX(22%)'}}>Name</th>
+            <th className="table-column-favorite" ></th>
+            <th className="table-column-logo">Name</th>
             <th className="table-column-symbol">Symbol</th>
-            <th className="table-column-price" style={{padding: '10px'}}>Price (USD)</th>
+            <th className="table-column-price">Price (USD)</th>
             <th className="table-column-change" style={{padding: '10px'}}>Change (24h)</th>
             <th></th>
           </tr>

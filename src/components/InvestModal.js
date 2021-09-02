@@ -36,9 +36,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
     const [cryptoAmount, setCryptoAmount] = useState(1);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const history = JSON.parse(localStorage.getItem('history'));
-    console.log(history);
     let balance = localStorage.getItem('balance');
-    console.log(JSON.parse(localStorage.getItem('portfolio')));     
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     const [overBalance, setOverBalance] = useState('false');
     const [errorMessage, setErrorMessage] = useState('');

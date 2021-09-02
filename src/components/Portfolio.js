@@ -16,11 +16,9 @@ const Portfolio = () => {
 
 
     if (fetchedPrices) {
-        console.log(fetchedPrices);
         Object.keys(fetchedPrices).forEach(id => {
-            console.log(sum, fetchedPrices[id].usd, portfolio[id].amount, portfolio[id].amount * fetchedPrices[id].usd);
             sum += portfolio[id].amount * fetchedPrices[id].usd;
-            totalPrice += portfolio.[id].price;
+            totalPrice += portfolio[id].price;
         });    
     }
     
@@ -29,7 +27,7 @@ const Portfolio = () => {
             <h1 style={{textAlign: 'center', fontSize: '36px'}}>Portfolio</h1>
             <h2 style={{textAlign: 'center'}}>Value: ${sum.toFixed(2)} <span style={sum > totalPrice ? {color: 'green', paddingLeft: '10px'} : {color: 'red', paddingLeft: '10px'}}>{sum > totalPrice ? '+' : ''}{totalPrice === 0 ? '0.00' : ((sum/totalPrice-1)*100).toFixed(2)}%</span></h2>
             <h3 style={{textAlign: 'center', marginBottom: '5px'}}>Remaining balance: ${balance}</h3>
-            <h3 style={{textAlign: 'center', marginTop: '5px'}}>Total funds: ${balance + sum}</h3>
+            <h3 style={{textAlign: 'center', marginTop: '5px'}}>Total funds: ${+(balance + sum).toFixed(2)}</h3>
             <InvestmentList></InvestmentList>
         </div>
     )
