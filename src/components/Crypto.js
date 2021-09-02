@@ -35,7 +35,7 @@ const Crypto = ({ crypto, openModal, isFavorite, setCryptoId }) => {
   };
 
   const setId = () => {
-    setCryptoId(Crypto.id)
+    setCryptoId(crypto.id)
   }
 
   function onClick() {
