@@ -178,6 +178,11 @@ ul.pagination-field {
   margin-right: 20px;
 }
 
+.Balance h1.nb-user-name {
+  position: absolute;
+  right: 20%;
+}
+
 .register-container {
   width: 60%;
   margin: auto;
