@@ -1,9 +1,9 @@
 import Navbar from "./Navbar";
 
-function Header() {
+function Header({user, loggedIn}) {
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar user={user} loggedIn={loggedIn}></Navbar>
     </>
   );
 }

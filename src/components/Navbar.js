@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../img/cryplogo.jpg";
 
-function Navbar() {
+function Navbar({user, loggedIn}) {
   const balance = parseFloat(localStorage.getItem('balance'));
   return (
     <div className="navBar">
@@ -26,9 +26,11 @@ function Navbar() {
         </NavDiv>
         <NavDiv className="Login">
           <NavLink to="/register">Register</NavLink>
-          <NavLink to="/login">Login</NavLink>
+          {loggedIn ? <NavLink to="/logut">Logout</NavLink> : <NavLink to="/login">Login</NavLink>}
+
         </NavDiv>
         <NavDiv className="Balance">
+        {loggedIn ? <h1 className="nb-user-name">User: {user.Name}</h1> : null}
           <h1>Balance: ${balance.toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2

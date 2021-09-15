@@ -17,7 +17,9 @@ function App() {
   let [modalOpen, setModalOpen] = useState(false);
   let [selectedCrypto, setSelectedCrypto] = useState({});
   let [cryptoId, setCryptoId] = useState();
-  let [isFavorite, setIsFavorite] = useState();
+  let [isFavorite, setIsFavorite] = useState();;
+  let [user, setUser] = useState()
+  let [loggedIn, setLoggedIn] = useState(false)
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -50,7 +52,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header></Header>
+        <Header user={user} loggedIn={loggedIn}></Header>
         <InvestModal
           crypto={selectedCrypto}
           modalOpen={modalOpen}
