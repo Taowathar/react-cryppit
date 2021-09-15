@@ -25,8 +25,7 @@ function Navbar() {
           <NavLink to="/history">Trade history</NavLink>
         </NavDiv>
         <NavDiv className="Balance">
-          <h1 style={{ marginLeft: "53rem", transform: 'translateY(-70%)' }}>
-            Balance: ${balance.toLocaleString(undefined, {
+          <h1>Balance: ${balance.toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 })}

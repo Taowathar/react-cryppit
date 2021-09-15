@@ -167,3 +167,13 @@ ul.pagination-field {
 .details-container.favoriteButton {
   width: 50px;
 }
+
+.Balance {
+  display: contents;
+}
+
+.Balance h1 {
+  position: absolute;
+  right: 0%;
+  margin-right: 20px;
+} 
