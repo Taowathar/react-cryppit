@@ -176,4 +176,43 @@ ul.pagination-field {
   position: absolute;
   right: 0%;
   margin-right: 20px;
-} 
+}
+
+.register-container {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+
+.register-container h1 {
+  font-size: 3em;
+}
+
+.register-form {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-form div {
+  text-align: left;
+  margin: 50px;
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.register-form input {
+  font-size: 30px;
+  min-width: 80%;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.register-form button {
+  font-size: 30px;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  border-radius: 15px;
+}
