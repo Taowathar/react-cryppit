@@ -12,6 +12,7 @@ import CryptoDetails from "./components/CryptoDetails";
 import Portfolio from "./components/Portfolio";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -139,6 +140,7 @@ function App() {
           />
           <Route path="/register" exact render={() => <Register />} />
           <Route path="/login" exact render={() => <Login setUser={setUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn} />} />
+          <Route path="/logout" exact render={() => <Logout setUser={setUser} setLoggedIn={setLoggedIn} />} />
         </Switch>
       </div>
     </Router>
