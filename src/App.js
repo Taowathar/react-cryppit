@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
 import CryptoDetails from "./components/CryptoDetails";
 import Portfolio from "./components/Portfolio";
+import Register from "./components/Register";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
@@ -133,6 +134,7 @@ function App() {
             exact
             render={() => <Portfolio openModal={openModal} />}
           />
+          <Route path="/register" exact render={() => <Register />} />
         </Switch>
       </div>
     </Router>
