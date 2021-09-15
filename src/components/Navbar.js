@@ -30,7 +30,7 @@ function Navbar({user, loggedIn}) {
 
         </NavDiv>
         <NavDiv className="Balance">
-        {loggedIn ? <h1 className="nb-user-name">User: {user.Name}</h1> : null}
+        {loggedIn ? <h1 className="nb-user-name">User Name: {user.Name}</h1> : null}
           <h1>Balance: ${balance.toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2

@@ -180,7 +180,9 @@ ul.pagination-field {
 
 .Balance h1.nb-user-name {
   position: absolute;
-  right: 20%;
+  font-size: 1em;
+  right: 15%;
+  margin-top: 25px;
 }
 
 .register-container {
