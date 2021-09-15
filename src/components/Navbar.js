@@ -24,6 +24,10 @@ function Navbar() {
         <NavDiv className="History">
           <NavLink to="/history">Trade history</NavLink>
         </NavDiv>
+        <NavDiv className="Login">
+          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/login">Login</NavLink>
+        </NavDiv>
         <NavDiv className="Balance">
           <h1>Balance: ${balance.toLocaleString(undefined, {
   minimumFractionDigits: 2,
