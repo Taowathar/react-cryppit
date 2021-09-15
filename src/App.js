@@ -19,7 +19,7 @@ function App() {
   let [selectedCrypto, setSelectedCrypto] = useState({});
   let [cryptoId, setCryptoId] = useState();
   let [isFavorite, setIsFavorite] = useState();;
-  let [user, setUser] = useState()
+  let [user, setUser] = useState({Name: "john"})
   let [loggedIn, setLoggedIn] = useState(false)
 
   const pageCount = 459;
@@ -138,7 +138,7 @@ function App() {
             render={() => <Portfolio openModal={openModal} />}
           />
           <Route path="/register" exact render={() => <Register />} />
-          <Route path="/login" exact render={() => <Login setUser={setUser} setLoggedIn={setLoggedIn} />} />
+          <Route path="/login" exact render={() => <Login setUser={setUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn} />} />
         </Switch>
       </div>
     </Router>
