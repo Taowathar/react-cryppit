@@ -8,8 +8,8 @@ import Loading from "./Loading";
 
 const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
-  const cryptoURL = `https://api.coingecko.com/api/v3/coins/${cryptoId}`;
-  const cryptoDataURL = `https://api.coingecko.com/api/v3/coins/${cryptoId}/market_chart?vs_currency=usd&days=30&interval=daily`;
+  const cryptoURL = `https://localhost:44348/api/cryptodetail/${cryptoId}`;
+  const cryptoDataURL = `https://localhost:44348/api/cryptograph/${cryptoId}`;
   let dates = [];
   let prices = [];
   let hasData = false;
@@ -56,19 +56,21 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
   return (
     <div>
       <h1>Crypto's details</h1>
-      {!hasData && (
-        <Loading marginLeft='0'/>
-      )
-      
-      }
+      {!hasData && <Loading marginLeft="0" />}
       {hasData && (
         <>
           <ButtonsDiv>
             <div className="favoriteButton" onClick={changeFavorite}>
-              {favorite ? <AiFillHeart size={50} /> : <AiOutlineHeart size={50} />}
+              {favorite ? (
+                <AiFillHeart size={50} />
+              ) : (
+                <AiOutlineHeart size={50} />
+              )}
             </div>
             <div>
-              <InvestButton onClick={() => openModal(selectedCrypto)}>Invest</InvestButton>
+              <InvestButton onClick={() => openModal(selectedCrypto)}>
+                Invest
+              </InvestButton>
             </div>
           </ButtonsDiv>
 
@@ -77,34 +79,67 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
               <h2>
                 {crypto.name} ({crypto.symbol.toUpperCase()})
               </h2>
-              <h4>Current price: {crypto.market_data.current_price.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})} USD</h4>
-              <h4>Market cap: {crypto.market_data.market_cap.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})} USD</h4>
-              <h4>24h Highest: {crypto.market_data.high_24h.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})} USD</h4>
-              <h4>24h Lowest: {crypto.market_data.low_24h.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})} USD</h4>
-              <h4>24h Price change: {crypto.market_data.price_change_percentage_24h_in_currency.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}%</h4>
-              <h4>All time high: {crypto.market_data.ath.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})} USD</h4>
-              <h4>Total volume: {crypto.market_data.total_volume.usd.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}</h4>
+              <h4>
+                Current price:{" "}
+                {crypto.market_data.current_price.usd.toLocaleString(
+                  undefined,
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}{" "}
+                USD
+              </h4>
+              <h4>
+                Market cap:{" "}
+                {crypto.market_data.market_cap.usd.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                USD
+              </h4>
+              <h4>
+                24h Highest:{" "}
+                {crypto.market_data.high_24h.usd.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                USD
+              </h4>
+              <h4>
+                24h Lowest:{" "}
+                {crypto.market_data.low_24h.usd.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                USD
+              </h4>
+              <h4>
+                24h Price change:{" "}
+                {crypto.market_data.price_change_percentage_24h_in_currency.usd.toLocaleString(
+                  undefined,
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }
+                )}
+                %
+              </h4>
+              <h4>
+                All time high:{" "}
+                {crypto.market_data.ath.usd.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                USD
+              </h4>
+              <h4>
+                Total volume:{" "}
+                {crypto.market_data.total_volume.usd.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </h4>
             </div>
             <GraphDiv>
               <Line

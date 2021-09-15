@@ -3,8 +3,8 @@ import { timeConverter } from "../converters/UnixTimeConverter";
 import { Line } from "react-chartjs-2";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
-import Loading from './Loading'
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import Loading from "./Loading";
 
 const CoinDetail = ({ crypto, openModal }) => {
   let cryptoData = null;
@@ -12,7 +12,8 @@ const CoinDetail = ({ crypto, openModal }) => {
   let dates = [];
   let prices = [];
 
-  let dataUrl = `https://api.coingecko.com/api/v3/coins/${crypto.id}/market_chart?vs_currency=usd&days=30&interval=daily`;
+  console.log(crypto.id);
+  let dataUrl = `https://localhost:44348/api/cryptograph/${crypto.id}`;
 
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
   const [favorite, setfavorite] = useState(false);
@@ -80,9 +81,7 @@ const CoinDetail = ({ crypto, openModal }) => {
 
   return (
     <div>
-      {!hasData && (
-        <Loading marginLeft="33.5"></Loading>
-      )}
+      {!hasData && <Loading marginLeft="33.5"></Loading>}
       {hasData && (
         <>
           <ButtonsDiv>
@@ -112,11 +111,16 @@ const CoinDetail = ({ crypto, openModal }) => {
                 />
                 {crypto.name} ({crypto.symbol.toUpperCase()})
               </h2>
-              <h4>Current price: {crypto.current_price.toLocaleString()} USD</h4>
+              <h4>
+                Current price: {crypto.current_price.toLocaleString()} USD
+              </h4>
               <h4>Market cap: {crypto.market_cap.toLocaleString()} USD</h4>
               <h4>24h Highest: {crypto.high_24h.toLocaleString()} USD</h4>
               <h4>24h Lowest: {crypto.low_24h.toLocaleString()} USD</h4>
-              <h4>24h Price change: {crypto.price_change_percentage_24h.toLocaleString()} %</h4>
+              <h4>
+                24h Price change:{" "}
+                {crypto.price_change_percentage_24h.toLocaleString()} %
+              </h4>
               <h4>All time high: {crypto.ath.toLocaleString()} USD</h4>
               <h4>Total volume: {crypto.total_volume.toLocaleString()}</h4>
             </div>
