@@ -37,7 +37,8 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
       prices.push(detail[1]);
     }
   }
-
+  console.log(crypto)
+  console.log(cryptoData)
   const state = {
     labels: dates,
     datasets: [
@@ -116,7 +117,7 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
               </h4>
               <h4>
                 24h Price change:{" "}
-                {crypto.market_data.price_change_percentage_24h_in_currency.usd.toLocaleString(
+                {crypto.market_data.price_change_percentage_24h.toLocaleString(
                   undefined,
                   {
                     minimumFractionDigits: 2,
