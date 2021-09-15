@@ -20,7 +20,7 @@ function App() {
   let [selectedCrypto, setSelectedCrypto] = useState({});
   let [cryptoId, setCryptoId] = useState();
   let [isFavorite, setIsFavorite] = useState();;
-  let [user, setUser] = useState({Name: "john"})
+  let [user, setUser] = useState({Name: "john", Balance: 100000})
   let [loggedIn, setLoggedIn] = useState(false)
 
   const pageCount = 459;
