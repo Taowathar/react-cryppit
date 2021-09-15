@@ -2,55 +2,67 @@ import React, {useState} from 'react'
 import { useAxiosGet } from '../hooks/axiosGet';
 import InvestmentList from './InvestmentList';
 import ReactPaginate from 'react-paginate';
+import { createGlobalStyle } from 'styled-components';
 
 
 const Portfolio = ({openModal}) => {
-    const portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    // const portfolio = JSON.parse(localStorage.getItem('portfolio'));
     let sum = 0;
     let totalPrice = 0;
     const balance = parseFloat(localStorage.getItem('balance'));
 
-    const ids = Object.keys(portfolio);
-    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join('%2C')}&vs_currencies=usd`;
-    const [, fetchedPrices] = useAxiosGet(url, [1]);
+    // const ids = Object.keys(portfolio);
+    // const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join('%2C')}&vs_currencies=usd`;
+    const url = `https://localhost:44348/api/investmentlist/9df35e81bdde45cdbf4fa280bf21aae7`; // param: userId
+    const [, portfolio] = useAxiosGet(url, []);
 
     
-    const getSortedInvestmentList = () => {
-        let investmentList = [];
-        const keys = Object.keys(portfolio);
-        keys.forEach(key => {
-            portfolio[key].id = key;
-            investmentList.push(portfolio[key])
-        })
-        investmentList.sort((a, b) => (a.price < b.price) ? 1 : -1);
-        return investmentList;
+    const getSortedPortfolio = () => {
+        // let investmentList = [];
+        // const keys = Object.keys(portfolio);
+        // keys.forEach(key => {
+        //     portfolio[key].id = key;
+        //     investmentList.push(portfolio[key])
+        // })
+        portfolio.sort((a, b) => (a.price < b.price) ? 1 : -1);
+        return portfolio;
     }
     
-        
     const [currentPage, setCurrentPage] = useState(1);
-    const investmentsPerPage = 2;
-    const pageCount = Math.ceil(Object.keys(portfolio).length / investmentsPerPage);
-    
-    const investmentList = getSortedInvestmentList();
-    let startIndex = (currentPage-1) * investmentsPerPage;
-    let maxIndex = startIndex + investmentsPerPage < investmentList.length ? startIndex + investmentsPerPage : investmentList.length;
     let investmentsToDisplay = [];
-    for (let i = startIndex; i < maxIndex; i++) {
-        investmentsToDisplay.push(investmentList[i]);
+    let pageCount = 0;
+    let investmentList = [];
+
+    if (portfolio) {
+        // Object.keys(fetchedPrices).forEach(id => {
+        //     sum += portfolio[id].amount * fetchedPrices[id].usd;
+        //     totalPrice += portfolio[id].price;
+        // });
+        portfolio.forEach(inv => {
+            sum += inv.amount * inv.current_price;
+            totalPrice += inv.price;
+        })  
+        
+        const investmentsPerPage = 2;
+        // const pageCount = Math.ceil(Object.keys(portfolio).length / investmentsPerPage);
+        pageCount = Math.ceil(portfolio.length / investmentsPerPage);
+        
+        investmentList = getSortedPortfolio();
+        let startIndex = (currentPage-1) * investmentsPerPage;
+        let maxIndex = startIndex + investmentsPerPage < investmentList.length ? startIndex + investmentsPerPage : investmentList.length;
+        for (let i = startIndex; i < maxIndex; i++) {
+            investmentsToDisplay.push(investmentList[i]);
+        }
+        console.log(investmentsToDisplay)
     }
+    
+
     
 
     const handlePageChange = (selectedObject) => {
         setCurrentPage(selectedObject.selected + 1);
     };
     
-
-    if (fetchedPrices) {
-        Object.keys(fetchedPrices).forEach(id => {
-            sum += portfolio[id].amount * fetchedPrices[id].usd;
-            totalPrice += portfolio[id].price;
-        });
-    }
     
     return (
         <div>

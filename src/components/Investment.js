@@ -8,16 +8,21 @@ import Loading from "./Loading";
 
 const Investment = ({ crypto, openModal }) => {
   // const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto.id}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;`https://localhost:44348/api/cryptograph/${crypto.id}}`
-  const url = `https://localhost:44348/api/investmentlist/${crypto.id}}`;
+  console.log(crypto.crypto_id)
+  const url = `https://localhost:44348/api/cryptodetail/${crypto.crypto_id}`;
   const [, fetchedDetails] = useAxiosGet(url, []);
   let details = null;
+  
   if (fetchedDetails) {
-    details = fetchedDetails[0];
+    console.log(fetchedDetails)
+    console.log(crypto);
+    details = fetchedDetails;
+    console.log(details);
   }
 
   let prices = [];
   let dates = [];
-  let pricesUrl = `https://localhost:44348/api/cryptograph/${crypto.id}}`;
+  let pricesUrl = `https://localhost:44348/api/cryptograph/${crypto.crypto_id}`;
   const [, fetchedPrices] = useAxiosGet(pricesUrl, []);
   if (fetchedPrices) {
     for (let price of fetchedPrices.prices) {
@@ -91,7 +96,7 @@ const Investment = ({ crypto, openModal }) => {
               }}
             >
               <img
-                src={details.image}
+                src={details.image.large}
                 alt="logo"
                 style={{ width: "50px", height: "50px", paddingRight: "20px" }}
               />
@@ -111,7 +116,7 @@ const Investment = ({ crypto, openModal }) => {
           <div style={{ textAlign: "center" }}>
             <h1
               style={
-                details.current_price > crypto.price / crypto.amount
+                details.market_data.current_price.usd > crypto.price / crypto.amount
                   ? {
                       color: "green",
                       paddingLeft: "10px",
@@ -129,13 +134,13 @@ const Investment = ({ crypto, openModal }) => {
               }
             >
               <span style={{ float: "right" }}>
-                {details.current_price > crypto.price / crypto.amount
+                {details.market_data.current_price.usd > crypto.price / crypto.amount
                   ? "+"
                   : ""}
                 {crypto.price / crypto.amount === 0
                   ? "0.00"
                   : (
-                      (details.current_price / (crypto.price / crypto.amount) -
+                      (details.market_data.current_price.usd / (crypto.price / crypto.amount) -
                         1) *
                       100
                     ).toFixed(2)}
@@ -167,7 +172,7 @@ const Investment = ({ crypto, openModal }) => {
             </h3>
             <h3>
               Current value: $
-              {(details.current_price * crypto.amount).toLocaleString(
+              {(details.market_data.current_price.usd * crypto.amount).toLocaleString(
                 undefined,
                 {
                   minimumFractionDigits: 2,
@@ -175,7 +180,7 @@ const Investment = ({ crypto, openModal }) => {
                 }
               )}{" "}
               ($
-              {details.current_price.toLocaleString(undefined, {
+              {details.market_data.current_price.usd.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}{" "}
@@ -183,14 +188,14 @@ const Investment = ({ crypto, openModal }) => {
             </h3>
             <h3>
               Market cap: $
-              {details.market_cap.toLocaleString(undefined, {
+              {details.market_data.market_cap.usd.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </h3>
             <h3>
               24h Price change:{" "}
-              {details.price_change_percentage_24h.toLocaleString(undefined, {
+              {details.market_data.price_change_percentage_24h.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -198,21 +203,21 @@ const Investment = ({ crypto, openModal }) => {
             </h3>
             <h3>
               24h Highest: $
-              {details.high_24h.toLocaleString(undefined, {
+              {details.market_data.high_24h.usd.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </h3>
             <h3>
               24h Lowest: $
-              {details.low_24h.toLocaleString(undefined, {
+              {details.market_data.low_24h.usd.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </h3>
             <h3>
               All time high: $
-              {details.ath.toLocaleString(undefined, {
+              {details.market_data.ath.usd.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
