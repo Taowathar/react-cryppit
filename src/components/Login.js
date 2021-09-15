@@ -1,51 +1,55 @@
 import { useState } from "react";
 import { Redirect } from "react-router";
 
-const Login = ({setUser, setLoggedIn, loggedIn}) => {
-    const [userData, setuserData] = useState({
-        Email: "",
-        Password: "",
-      });
+const Login = ({ setUser, setLoggedIn, loggedIn }) => {
+  const [userData, setuserData] = useState({
+    Email: "",
+    Password: "",
+  });
 
-    const login = (e) => {
-        e.preventDefault();
-        setLoggedIn(true)
-    }
+  const login = (e) => {
+    e.preventDefault();
+    setLoggedIn(true);
+  };
 
-    const onChange = (e) => {
-        e.persist();
-        setuserData({ ...userData, [e.target.name]: e.target.value });
-      };
+  const onChange = (e) => {
+    e.persist();
+    setuserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
-    return (
-        <div className="register-container">
-        <h1>Create New User</h1>
-        <form className="register-form" onSubmit={login}>
-          <div className="register-email-block">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="Email"
-              onChange={onChange}
-              value={userData.Email}
-              placeholder="Email"
-            />
-          </div>
-          <div className="register-password-block">
-            <label>Password:</label>
-            <input
-              type="Password"
-              name="Password"
-              onChange={onChange}
-              value={userData.Password}
-              placeholder="Password"
-            />
-          </div>
-  
-          <button type="submit">Login</button>
-        </form>
+  if (loggedIn) {
+    return <Redirect to="/" />;
+  }
+
+  return (
+    <div className="register-container">
+      <h1>Create New User</h1>
+      <form className="register-form" onSubmit={login}>
+        <div className="register-email-block">
+          <label>Email:</label>
+          <input
+            type="email"
+            name="Email"
+            onChange={onChange}
+            value={userData.Email}
+            placeholder="Email"
+          />
         </div>
-    )
-}
+        <div className="register-password-block">
+          <label>Password:</label>
+          <input
+            type="Password"
+            name="Password"
+            onChange={onChange}
+            value={userData.Password}
+            placeholder="Password"
+          />
+        </div>
 
-export default Login
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
