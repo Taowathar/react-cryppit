@@ -2,24 +2,36 @@ import { useAxiosGet } from "../hooks/axiosGet";
 import { timeConverter } from "../converters/UnixTimeConverter";
 import { Line } from "react-chartjs-2";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import Loading from "./Loading";
+import axios from "axios";
 
 const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
   const [favorite, setfavorite] = useState(isFavorite);
+  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
   const cryptoURL = `https://localhost:44348/api/cryptodetail/${cryptoId}`;
   const cryptoDataURL = `https://localhost:44348/api/cryptograph/${cryptoId}`;
   let dates = [];
   let prices = [];
   let hasData = false;
 
+  useEffect(() => {
+    if (storage) {
+      for (let cryp of storage) {
+        if (cryp.id === crypto.id) {
+          setfavorite(true);
+        }
+      }
+    }
+  }, [storage]);
+
   const changeFavorite = () => {
     setfavorite(!favorite);
     if (favorite) {
-      localStorage.removeItem(`favorite ${crypto.id}`);
+      axios.delete(`https://localhost:44348/api/favorite/${crypto.id}`);
     } else {
-      localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
+      axios.post("https://localhost:44348/api/favorite", crypto);
     }
   };
 
@@ -37,8 +49,7 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
       prices.push(detail[1]);
     }
   }
-  console.log(crypto)
-  console.log(cryptoData)
+
   const state = {
     labels: dates,
     datasets: [

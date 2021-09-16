@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import Loading from "./Loading";
+import axios from "axios";
 
 const CoinDetail = ({ crypto, openModal }) => {
   let cryptoData = null;
@@ -16,6 +17,7 @@ const CoinDetail = ({ crypto, openModal }) => {
 
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
   const [favorite, setfavorite] = useState(false);
+  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
 
   if (fetchedCryptoData) {
     cryptoData = fetchedCryptoData;
@@ -30,32 +32,22 @@ const CoinDetail = ({ crypto, openModal }) => {
   }
 
   useEffect(() => {
-    const getAllItemFromLocalStorage = () => {
-      let values = [],
-        keys = Object.keys(localStorage),
-        i = keys.length;
-
-      while (i--) {
-        if (keys[i].includes("favorite")) {
-          values.push(JSON.parse(localStorage.getItem(keys[i])));
+    console.log("cryp");
+    if (storage) {
+      for (let cryp of storage) {
+        if (cryp.id === crypto.id) {
+          setfavorite(true);
         }
       }
-
-      return values;
-    };
-
-    let storage = getAllItemFromLocalStorage();
-    if (storage.includes(crypto.id)) {
-      setfavorite(true);
     }
-  }, []);
+  }, [storage]);
 
   const changeFavorite = () => {
     setfavorite(!favorite);
     if (favorite) {
-      localStorage.removeItem(`favorite ${crypto.id}`);
+      axios.delete(`https://localhost:44348/api/favorite/${crypto.id}`);
     } else {
-      localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
+      axios.post("https://localhost:44348/api/favorite", crypto);
     }
   };
 

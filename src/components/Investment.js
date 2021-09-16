@@ -7,17 +7,12 @@ import { Line } from "react-chartjs-2";
 import Loading from "./Loading";
 
 const Investment = ({ crypto, openModal }) => {
-  // const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto.id}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;`https://localhost:44348/api/cryptograph/${crypto.id}}`
-  console.log(crypto.crypto_id)
   const url = `https://localhost:44348/api/cryptodetail/${crypto.crypto_id}`;
   const [, fetchedDetails] = useAxiosGet(url, []);
   let details = null;
   
   if (fetchedDetails) {
-    console.log(fetchedDetails)
-    console.log(crypto);
     details = fetchedDetails;
-    console.log(details);
   }
 
   let prices = [];
