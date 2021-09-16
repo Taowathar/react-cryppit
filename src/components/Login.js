@@ -9,7 +9,7 @@ const Login = ({ setUser, setLoggedIn, loggedIn }) => {
     Password: "",
   });
   const alert = useAlert();
-
+  let [, fetchedUsers] = useAxiosGet("https://localhost:44348/api/user", []);
 
 
   const login = (e) => {
