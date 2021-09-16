@@ -10,13 +10,18 @@ import Home from "./components/Home";
 import InvestModal from "./components/InvestModal";
 import CryptoDetails from "./components/CryptoDetails";
 import Portfolio from "./components/Portfolio";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 function App() {
   let [currentPage, setCurrentPage] = useState(1);
   let [modalOpen, setModalOpen] = useState(false);
   let [selectedCrypto, setSelectedCrypto] = useState({});
   let [cryptoId, setCryptoId] = useState();
-  let [isFavorite, setIsFavorite] = useState();
+  let [isFavorite, setIsFavorite] = useState();;
+  let [user, setUser] = useState()
+  let [loggedIn, setLoggedIn] = useState(false)
 
   const pageCount = 459;
   const cryptoPerPage = 20;
@@ -49,7 +54,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header></Header>
+        <Header user={user} loggedIn={loggedIn}></Header>
         <InvestModal
           crypto={selectedCrypto}
           modalOpen={modalOpen}
@@ -133,6 +138,9 @@ function App() {
             exact
             render={() => <Portfolio openModal={openModal} />}
           />
+          <Route path="/register" exact render={() => <Register />} />
+          <Route path="/login" exact render={() => <Login setUser={setUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn} />} />
+          <Route path="/logout" exact render={() => <Logout setUser={setUser} setLoggedIn={setLoggedIn} />} />
         </Switch>
       </div>
     </Router>

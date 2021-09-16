@@ -19,7 +19,6 @@ function TodayCoin({ openModal }) {
     hasCurr = true;
   }
 
-  console.log(dailyCrypto);
   return (
     <TodayDiv>
       <Title>Today's coin</Title>

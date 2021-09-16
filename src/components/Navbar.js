@@ -2,14 +2,20 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../img/cryplogo.jpg";
 
-function Navbar() {
-  const balance = parseFloat(localStorage.getItem('balance'));
+function Navbar({ user, loggedIn }) {
   return (
     <div className="navBar">
       <NavBar>
-        <NavDiv className="Home" style={{paddingTop: '.5rem'}}>
+        <NavDiv className="Home" style={{ paddingTop: ".5rem" }}>
           <NavLink to="/">
-            <Image style={{width: '150px', height: 'auto', transform: 'translateY(-5%)'}} src={logo}></Image>
+            <Image
+              style={{
+                width: "150px",
+                height: "auto",
+                transform: "translateY(-5%)",
+              }}
+              src={logo}
+            ></Image>
           </NavLink>
         </NavDiv>
         <NavDiv className="CryptoList">
@@ -24,13 +30,27 @@ function Navbar() {
         <NavDiv className="History">
           <NavLink to="/history">Trade history</NavLink>
         </NavDiv>
+        <NavDiv className="Login">
+          <NavLink to="/register">Register</NavLink>
+          {loggedIn ? (
+            <NavLink to="/logout">Logout</NavLink>
+          ) : (
+            <NavLink to="/login">Login</NavLink>
+          )}
+        </NavDiv>
         <NavDiv className="Balance">
-          <h1 style={{ marginLeft: "53rem", transform: 'translateY(-70%)' }}>
-            Balance: ${balance.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}
-          </h1>
+          {loggedIn ? (
+            <h1 className="nb-user-name">User Name: {user.name}</h1>
+          ) : null}
+          {loggedIn ? (
+            <h1>
+              Balance: $
+              {user.balance.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </h1>
+          ) : null}
         </NavDiv>
       </NavBar>
     </div>
@@ -44,7 +64,7 @@ const NavDiv = styled.div`
 
 const NavLink = styled(Link)`
   font-size: 1.6em;
-  padding: .8rem;
+  padding: 0.8rem;
   margin-left: 1rem;
   text-decoration: none;
   transform: translateY(-50%);

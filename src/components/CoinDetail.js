@@ -12,7 +12,6 @@ const CoinDetail = ({ crypto, openModal }) => {
   let dates = [];
   let prices = [];
 
-  console.log(crypto.id);
   let dataUrl = `https://localhost:44348/api/cryptograph/${crypto.id}`;
 
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
