@@ -40,7 +40,7 @@ const Login = ({ setUser, setLoggedIn, loggedIn }) => {
 
   return (
     <div className="register-container">
-      <h1>Create New User</h1>
+      <h1>Welcome Back!</h1>
       <form className="register-form" onSubmit={login}>
         <div className="register-email-block">
           <label>Email:</label>
