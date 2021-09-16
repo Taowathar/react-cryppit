@@ -19,7 +19,7 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
   useEffect(() => {
     if (storage) {
       for (let cryp of storage) {
-        if (cryp.id === crypto.id) {
+        if (cryp.id === cryptoId) {
           setfavorite(true);
         }
       }
