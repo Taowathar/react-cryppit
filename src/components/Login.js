@@ -11,10 +11,22 @@ const Login = ({ setUser, setLoggedIn, loggedIn }) => {
   const alert = useAlert();
   let [, fetchedUsers] = useAxiosGet("https://localhost:44348/api/user", []);
 
-
   const login = (e) => {
     e.preventDefault();
-
+    for (let user of fetchedUsers) {
+      if (user.email === userData.Email) {
+        if (user.password === userData.Password) {
+          setUser(user);
+          setLoggedIn(true);
+          return;
+        } else {
+          alert.show("Invalid Password");
+          return;
+        }
+      }
+    }
+    alert.show("Invalid Email");
+    return;
   };
 
   const onChange = (e) => {
