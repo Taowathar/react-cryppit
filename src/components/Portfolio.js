@@ -5,15 +5,21 @@ import ReactPaginate from 'react-paginate';
 import { createGlobalStyle } from 'styled-components';
 
 
-const Portfolio = ({openModal}) => {
+const Portfolio = ({openModal, user, loggedIn}) => {
     // const portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    if (!loggedIn) {
+        user = {
+            'balance': 0,
+            
+        }
+    }
     let sum = 0;
     let totalPrice = 0;
-    const balance = parseFloat(localStorage.getItem('balance'));
+    const balance = user.balance;
 
     // const ids = Object.keys(portfolio);
     // const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join('%2C')}&vs_currencies=usd`;
-    const url = `https://localhost:44348/api/investmentlist/9df35e81bdde45cdbf4fa280bf21aae7`; // param: userId
+    const url = `https://localhost:44348/api/investmentlist/${user.id}`; // param: userId
     const [, portfolio] = useAxiosGet(url, []);
 
     
@@ -66,23 +72,25 @@ const Portfolio = ({openModal}) => {
     
     return (
         <div>
-            <h1 style={{textAlign: 'center', fontSize: '36px'}}>Portfolio</h1>
+                <h1 style={{textAlign: 'center', fontSize: '36px'}}>Portfolio</h1>
+            {loggedIn && (
+<>
 
                 <h2 style={{textAlign: 'center'}}>Value: ${sum.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})} <span style={sum > totalPrice ? {color: 'green', paddingLeft: '10px'} : {color: 'red', paddingLeft: '10px'}}>{sum > totalPrice ? '+' : ''}{totalPrice === 0 ? '0.00' : ((sum/totalPrice-1)*100).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })} <span style={sum > totalPrice ? {color: 'green', paddingLeft: '10px'} : {color: 'red', paddingLeft: '10px'}}>{sum > totalPrice ? '+' : ''}{totalPrice === 0 ? '0.00' : ((sum/totalPrice-1)*100).toLocaleString(undefined, {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
 })}%</span></h2>
             <h3 style={{textAlign: 'center', marginBottom: '5px'}}>Remaining balance: ${balance.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}</h3>
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}</h3>
             <h3 style={{textAlign: 'center', marginTop: '5px'}}>Total funds: ${(balance + sum).toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}</h3>
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}</h3>
             <InvestmentList investments={investmentsToDisplay} openModal={openModal}></InvestmentList>
             <div className="pagination-field">
                       <ReactPaginate
@@ -100,6 +108,11 @@ const Portfolio = ({openModal}) => {
                         activeClassName={"active"}
                         />
                     </div>
+                    </>
+            )}
+            {!loggedIn && (
+                <h2 style={{textAlign: 'center'}}>Log in to see your portfolio!</h2>
+            )}
         </div>
     )
 }

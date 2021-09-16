@@ -8,15 +8,19 @@ import Loading from "./Loading";
 
 const Investment = ({ crypto, openModal }) => {
   // const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${crypto.id}&order=market_cap_desc&per_page=100&page=1&sparkline=false`;`https://localhost:44348/api/cryptograph/${crypto.id}}`
-  console.log(crypto.crypto_id)
   const url = `https://localhost:44348/api/cryptodetail/${crypto.crypto_id}`;
   const [, fetchedDetails] = useAxiosGet(url, []);
-  let details = null;
+  let details, detailsSimplified = null;
   
   if (fetchedDetails) {
-    console.log(fetchedDetails)
-    console.log(crypto);
     details = fetchedDetails;
+    detailsSimplified = 
+    {
+      'id': details.id,
+      'name': details.name,
+      'symbol': details.symbol,
+      'current_price': details.market_data.current_price.usd
+    }
     console.log(details);
   }
 
@@ -82,7 +86,7 @@ const Investment = ({ crypto, openModal }) => {
                 float: "right",
                 transform: "translateY(20%)",
               }}
-              onClick={() => openModal(details)}
+              onClick={() => openModal(detailsSimplified)}
             >
               Buy more
             </InvestButton>

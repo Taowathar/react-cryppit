@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import { useAxiosGet } from '../hooks/axiosGet';
 import Modal from 'react-modal';
 import InputNumber from 'react-input-number';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const customStyles = {
   content: {
@@ -30,14 +32,56 @@ const Button = styled.button`
 
 Modal.setAppElement('#root');
 
-const InvestModal = ({crypto, modalOpen, modalClose}) => {
+const InvestModal = ({crypto, modalOpen, modalClose, user, loggedIn}) => {
+    console.log(crypto)
+    if(!loggedIn) {
+        user = {
+            'balance': 0
+        }
+    }
+    if (Object.keys(crypto).length === 0) {
+        console.log('asd')
+        crypto = {
+            "id": "bitcoin",
+            "symbol": "btc",
+            "name": "Bitcoin",
+            "market_data": {
+                "current_price": {
+                    "usd": 48008
+                },
+                "ath": {
+                    "usd": 64805
+                },
+                "market_cap": {
+                    "usd": 903071466265
+                },
+                "total_volume": {
+                    "usd": 31585578328
+                },
+                "high_24h": {
+                    "usd": 48576
+                },
+                "low_24h": {
+                    "usd": 47336
+                },
+                "price_change_percentage_24h": 0.80971
+            },
+            "image": {
+                "thumb": "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
+                "small": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+                "large": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
+            }
+        }
+    }
+    
     let subtitle;
     const [usdAmount, setUsdAmount] = useState(crypto.current_price);
     const [cryptoAmount, setCryptoAmount] = useState(1);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const history = JSON.parse(localStorage.getItem('history'));
-    let balance = localStorage.getItem('balance');
-    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    let balance = user.balance;
+    const url = `https://localhost:44348/api/investmentlist/${user.id}`; // param: userId
+    const [, portfolio] = useAxiosGet(url, []);
     const [overBalance, setOverBalance] = useState('false');
     const [errorMessage, setErrorMessage] = useState('');
     
@@ -86,16 +130,29 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
         } else {
             const price = parseFloat(e.target[0].value);
             const boughtAmount = parseFloat(e.target[1].value);
-            if (crypto.id in portfolio) {
-                portfolio[crypto.id]['amount'] += boughtAmount;
-                portfolio[crypto.id]['price'] += price;
-            } else {
-                let purchase = {'amount' : boughtAmount, 
-                                'price' : price}
-                portfolio[crypto.id] = purchase;
+            let inPortfolio = false;
+            portfolio.forEach(investment => {
+                console.log(investment.crypto_id, crypto.id)
+                if (investment.crypto_id == crypto.id) {
+                    investment.amount += boughtAmount;
+                    investment.price += price;
+                    inPortfolio = true;
+                    console.log('l')
+                    axios.put(`https://localhost:44348/api/investmentlist/${investment.id}`, investment)
+                }
+            })
+            if (!inPortfolio) {
+                let newPurchase = {
+                    'user_id' : user.id,
+                    'crypto_id' : crypto.id,
+                    'amount' : boughtAmount, 
+                    'price' : price
+                }
+                axios.post(`https://localhost:44348/api/investmentlist/${user.id}`, newPurchase)
             }
-            localStorage.setItem('balance', +(localStorage.getItem('balance') - price).toFixed(2))
-            localStorage.setItem('portfolio', JSON.stringify(portfolio))
+            user.balance = +(user.balance - price).toFixed(2)
+            axios.put(`https://localhost:44348/api/user/${user.id}`, user)
+            // localStorage.setItem('portfolio', JSON.stringify(portfolio))
             const newPurchase = {
                 date: new Date(),
                 crypto: crypto,
@@ -123,7 +180,7 @@ const InvestModal = ({crypto, modalOpen, modalClose}) => {
         <form onSubmit={buy}>
             <label style={{display: 'block', fontStyle: 'italic', fontSize: '18px', paddingBottom: '6px'}}>Balance: ${balance}</label>
             <div className="currency-input" currency="USD">
-          <InputNumber id='usd-input' style={overBalance ? {backgroundColor: '#ff8080', fontSize: '16px', width: '150px'} : {backgroundColor: 'white', fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd} max={portfolio['balance']}/>
+          <InputNumber id='usd-input' style={overBalance ? {backgroundColor: '#ff8080', fontSize: '16px', width: '150px'} : {backgroundColor: 'white', fontSize: '16px', width: '150px'}} value={usdAmount} onChange={setUsd} max={balance}/>
           </div>
           <div className="currency-input" currency={crypto.symbol}>
           <InputNumber style={{fontSize: '16px', width: '150px'}} value={cryptoAmount} onChange={setCrypto}/>

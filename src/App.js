@@ -38,6 +38,8 @@ function App() {
   };
 
   function openModal(crypto) {
+
+    console.log(crypto)
     setSelectedCrypto(crypto);
     setModalOpen(true);
   }
@@ -50,16 +52,22 @@ function App() {
     localStorage.setItem("portfolio", JSON.stringify({}));
     localStorage.setItem("history", JSON.stringify([]));
   }
+  
 
   return (
     <Router>
       <div className="App">
         <Header user={user} loggedIn={loggedIn}></Header>
-        <InvestModal
+        {loggedIn && (
+
+          <InvestModal
           crypto={selectedCrypto}
           modalOpen={modalOpen}
           modalClose={modalClose}
-        ></InvestModal>
+          user={user}
+          loggedIn={loggedIn}
+          ></InvestModal>
+          )}
         <Switch>
           <Route
             path="/"
@@ -136,7 +144,7 @@ function App() {
           <Route
             path="/portfolio"
             exact
-            render={() => <Portfolio openModal={openModal} />}
+            render={() => <Portfolio openModal={openModal} user={user} loggedIn={loggedIn}  />}
           />
           <Route path="/register" exact render={() => <Register />} />
           <Route path="/login" exact render={() => <Login setUser={setUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn} />} />
