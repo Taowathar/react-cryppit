@@ -18,26 +18,10 @@ function TodayCoin({ openModal }) {
   }
 
   if (cryptoList != null) {
-    if (!localStorage.getItem("dailyCrypto")) {
-      let newDailyCrypto = { crypto: "", updated: 0 };
-      localStorage.setItem("dailyCrypto", JSON.stringify(newDailyCrypto));
-    }
-    let dailyCrypto = JSON.parse(localStorage.getItem("dailyCrypto"));
-    if (dailyCrypto.updated === milliSecondToDay(Date.now())) {
-      randomCurr = dailyCrypto.crypto;
-    } else {
-      randomCurr = cryptoList[0];
-    }
+    randomCurr = cryptoList[0];
     hasCurr = true;
-
-    let newFetchedDailyCrypto = {
-      crypto: randomCurr,
-      updated: milliSecondToDay(Date.now()),
-    };
-    localStorage.setItem("dailyCrypto", JSON.stringify(newFetchedDailyCrypto));
   }
 
-  console.log(randomCurr);
   return (
     <TodayDiv>
       <Title>Today's coin</Title>
