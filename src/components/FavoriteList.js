@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Crypto from "./Crypto";
+import { useAxiosGet } from "../hooks/axiosGet";
 
-const FavoriteList = ({ setCryptoId, setIsFavorite, openModal, setSelectedCrypto }) => {
+const FavoriteList = ({
+  setCryptoId,
+  setIsFavorite,
+  openModal,
+  setSelectedCrypto,
+}) => {
   let [favorites, setFavorites] = useState([]);
-  let storage = [];
+  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
 
   useEffect(() => {
-    const getAllItemFromLocalStorage = () => {
-      let keys = Object.keys(localStorage),
-        i = keys.length;
-
-      while (i--) {
-        if (keys[i].includes("favorite")) {
-          storage.push(JSON.parse(localStorage.getItem(keys[i])));
-        }
-      }
-
-      return storage;
-    };
-
-    setFavorites(getAllItemFromLocalStorage());
-  }, []);
+    setFavorites(storage);
+  }, [storage]);
 
   return (
     <div className="table-container">

@@ -31,7 +31,7 @@ function Navbar({ user, loggedIn }) {
           <NavLink to="/history">Trade history</NavLink>
         </NavDiv>
         <NavDiv className="Login">
-          <NavLink to="/register">Register</NavLink>
+          {!loggedIn ? (<NavLink to="/register">Register</NavLink>) : null}
           {loggedIn ? (
             <NavLink to="/logout">Logout</NavLink>
           ) : (

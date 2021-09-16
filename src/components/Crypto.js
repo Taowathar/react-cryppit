@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { InvestButton } from "./InvestButton";
+import axios from "axios";
+import { useAxiosGet } from "../hooks/axiosGet";
 
 const Crypto = ({
   crypto,
@@ -9,37 +11,27 @@ const Crypto = ({
   isFavorite,
   setCryptoId,
   setIsFavorite,
-  setSelectedCrypto
+  setSelectedCrypto,
 }) => {
   const [favorite, setfavorite] = useState(isFavorite);
+  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
 
   useEffect(() => {
-    const getAllItemFromLocalStorage = () => {
-      let values = [],
-        keys = Object.keys(localStorage),
-        i = keys.length;
-        
-      while (i--) {
-        if (keys[i][0] === 'f') {
-          values.push(JSON.parse(localStorage.getItem(keys[i])).id);
+    if (storage) {
+      for (let cryp of storage) {
+        if (cryp.id === crypto.id) {
+          setfavorite(true);
         }
       }
-      
-      return values;
-    };
-    
-    let storage = getAllItemFromLocalStorage();
-    if (storage.includes(crypto.id)) {
-      setfavorite(true);
     }
-  }, []);
+  }, [storage]);
 
   const changeFavorite = () => {
     setfavorite(!favorite);
     if (favorite) {
-      localStorage.removeItem(`favorite ${crypto.id}`);
+      axios.delete(`https://localhost:44348/api/favorite/${crypto.id}`);
     } else {
-      localStorage.setItem(`favorite ${crypto.id}`, JSON.stringify(crypto));
+      axios.post("https://localhost:44348/api/favorite", crypto);
     }
   };
 
@@ -52,12 +44,12 @@ const Crypto = ({
   function onClick() {
     openModal(crypto);
   }
-  
+
   const change = crypto.price_change_percentage_24h;
 
   return (
     <tr>
-      <td style={{ transform: 'translate(28%, 8%)' }}>
+      <td style={{ transform: "translate(28%, 8%)" }}>
         <div className="favoriteButton" onClick={changeFavorite}>
           {favorite ? <AiFillHeart /> : <AiOutlineHeart />}
         </div>
@@ -76,12 +68,13 @@ const Crypto = ({
       </td>
       <td className="crypto-symbol">{crypto.symbol}</td>
       <td style={{ textAlign: "right", padding: "10px" }}>
-        ${ crypto.current_price ? 
-        `${(crypto.current_price.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-}))}` : ''
-}
+        $
+        {crypto.current_price
+          ? `${crypto.current_price.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}`
+          : ""}
       </td>
 
       <td
@@ -91,14 +84,17 @@ const Crypto = ({
             : { color: "green", textAlign: "right", padding: "10px" }
         }
       >
-        
-        {!change ? '' : change < 0 ? `${change.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}%` : `+${change.toLocaleString(undefined, {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}%`}
+        {!change
+          ? ""
+          : change < 0
+          ? `${change.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}%`
+          : `+${change.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}%`}
       </td>
       <td className="investButton">
         <InvestButton onClick={onClick}>Invest</InvestButton>
