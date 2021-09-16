@@ -40,7 +40,7 @@ function Navbar({ user, loggedIn }) {
         </NavDiv>
         <NavDiv className="Balance">
           {loggedIn ? (
-            <h1 className="nb-user-name">User Name:{user.name}</h1>
+            <h1 className="nb-user-name">User Name: {user.name}</h1>
           ) : null}
           {loggedIn ? (
             <h1>

@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { Redirect } from "react-router";
+import { useAxiosGet } from "../hooks/axiosGet";
+import { useAlert } from "react-alert";
 
 const Login = ({ setUser, setLoggedIn, loggedIn }) => {
   const [userData, setuserData] = useState({
     Email: "",
     Password: "",
   });
+  const alert = useAlert();
+
+
 
   const login = (e) => {
     e.preventDefault();
-    setLoggedIn(true);
+
   };
 
   const onChange = (e) => {
