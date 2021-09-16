@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 const Register = () => {
@@ -9,7 +10,7 @@ const Register = () => {
 
   const registration = (e) => {
     e.preventDefault();
-    console.log(userData)
+    axios.post("https://localhost:44348/api/user", userData)
   };
 
   const onChange = (e) => {
