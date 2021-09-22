@@ -1,3 +1,6 @@
+Small informative React application about cryptocurrencies. At the first sprint we use coingecko API. But the second sprint we create own backend for it.
+Backend repository: https://github.com/natekolozsvari/CryppitAPI
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
