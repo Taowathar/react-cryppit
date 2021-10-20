@@ -7,9 +7,22 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import Loading from "./Loading";
 import axios from "axios";
 
-const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
+const CryptoDetails = ({
+  cryptoId,
+  selectedCrypto,
+  openModal,
+  isFavorite,
+  user,
+}) => {
+  if(user === undefined){
+    user = {'id': "1"}
+  }
+
   const [favorite, setfavorite] = useState(isFavorite);
-  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
+  let [, storage] = useAxiosGet(
+    `https://localhost:44348/api/favorite/${user.id}`,
+    []
+  );
   const cryptoURL = `https://localhost:44348/api/cryptodetail/${cryptoId}`;
   const cryptoDataURL = `https://localhost:44348/api/cryptograph/${cryptoId}`;
   let dates = [];
@@ -31,7 +44,7 @@ const CryptoDetails = ({ cryptoId, selectedCrypto, openModal, isFavorite }) => {
     if (favorite) {
       axios.delete(`https://localhost:44348/api/favorite/${crypto.id}`);
     } else {
-      axios.post("https://localhost:44348/api/favorite", crypto);
+      axios.post(`https://localhost:44348/api/favorite/${user.id}`, crypto);
     }
   };
 

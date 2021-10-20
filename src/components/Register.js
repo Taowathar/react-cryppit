@@ -10,7 +10,7 @@ const Register = () => {
 
   const registration = (e) => {
     e.preventDefault();
-    axios.post("https://localhost:44348/api/user", userData)
+    axios.post("https://localhost:44348/api/user", userData);
   };
 
   const onChange = (e) => {
