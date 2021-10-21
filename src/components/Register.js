@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { Redirect } from "react-router";
 
 const Register = () => {
+  let [newUser, setNewUser] = useState(false)
   const [userData, setuserData] = useState({
     Email: "",
     Name: "",
@@ -10,13 +12,19 @@ const Register = () => {
 
   const registration = (e) => {
     e.preventDefault();
-    axios.post("https://localhost:44348/api/user", userData);
+    axios.post("https://localhost:44348/api/user", userData)
+    setNewUser(true)
   };
 
   const onChange = (e) => {
     e.persist();
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
+
+  if (newUser) {
+    return <Redirect to="/" />;
+  }
+
 
   return (
     <div className="register-container">
