@@ -20,8 +20,8 @@ const Login = ({ setUser, setLoggedIn, loggedIn }) => {
       }})
 
     if (!loggedIn) {
-          alert.show("Invalid Password");
-          return;
+          // alert.show("Invalid Password");
+          // return;
     }
 
     // for (let user of fetchedUsers) {
