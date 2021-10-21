@@ -10,7 +10,7 @@ const FavoriteList = ({
   user,
 }) => {
   if (user === undefined) {
-    user =  {'id': "1"};
+    user = { id: "1" };
   }
 
   let [favorites, setFavorites] = useState([]);
@@ -56,6 +56,7 @@ const FavoriteList = ({
                 setCryptoId={setCryptoId}
                 setIsFavorite={setIsFavorite}
                 setSelectedCrypto={setSelectedCrypto}
+                user={user}
               />
             ))}
         </tbody>

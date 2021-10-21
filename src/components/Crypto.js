@@ -25,8 +25,10 @@ const Crypto = ({
 
   useEffect(() => {
     if (storage) {
+      console.log(crypto);
       for (let cryp of storage) {
         if (cryp.id === crypto.id) {
+          crypto.favoriteId = cryp.favoriteId;
           setfavorite(true);
         }
       }
@@ -36,7 +38,9 @@ const Crypto = ({
   const changeFavorite = () => {
     setfavorite(!favorite);
     if (favorite) {
-      axios.delete(`https://localhost:44348/api/favorite/${crypto.favoriteId}`);
+      axios.delete(
+        `https://localhost:44348/api/favorite/${crypto.id}/${user.id}`
+      );
     } else {
       axios.post(`https://localhost:44348/api/favorite/${user.id}`, crypto);
     }
