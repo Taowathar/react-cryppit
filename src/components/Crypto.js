@@ -12,9 +12,16 @@ const Crypto = ({
   setCryptoId,
   setIsFavorite,
   setSelectedCrypto,
+  user,
 }) => {
+  if (user === undefined) {
+    user = { id: "1" };
+  }
   const [favorite, setfavorite] = useState(isFavorite);
-  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
+  let [, storage] = useAxiosGet(
+    `https://localhost:44348/api/favorite/${user.id}`,
+    []
+  );
 
   useEffect(() => {
     if (storage) {
@@ -29,9 +36,9 @@ const Crypto = ({
   const changeFavorite = () => {
     setfavorite(!favorite);
     if (favorite) {
-      axios.delete(`https://localhost:44348/api/favorite/${crypto.id}`);
+      axios.delete(`https://localhost:44348/api/favorite/${crypto.favoriteId}`);
     } else {
-      axios.post("https://localhost:44348/api/favorite", crypto);
+      axios.post(`https://localhost:44348/api/favorite/${user.id}`, crypto);
     }
   };
 

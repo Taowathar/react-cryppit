@@ -74,7 +74,7 @@ function App() {
             exact
             render={() => (
               <>
-                <Home openModal={openModal}></Home>
+                <Home openModal={openModal} user={user}></Home>
               </>
             )}
           />
@@ -91,6 +91,7 @@ function App() {
                       setCryptoId={setCryptoId}
                       setSelectedCrypto={setSelectedCrypto}
                       setIsFavorite={setIsFavorite}
+                      user={user}
                     />
                   )}
                 </div>
@@ -123,6 +124,7 @@ function App() {
                   cryptoId={cryptoId}
                   openModal={openModal}
                   isFavorite={isFavorite}
+                  user={user}
                 />
               </div>
             )}
@@ -137,6 +139,7 @@ function App() {
                   setCryptoId={setCryptoId}
                   setSelectedCrypto={setSelectedCrypto}
                   setIsFavorite={setIsFavorite}
+                  user={user}
                 />
               </div>
             )}

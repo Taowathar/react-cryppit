@@ -3,10 +3,10 @@ import CoinDetail from "./CoinDetail";
 import Loading from "./Loading";
 import styled from "styled-components";
 
-function TodayCoin({ openModal }) {
+function TodayCoin({ openModal, user }) {
   let dailyCrypto = null;
   let hasCurr = false;
-  
+
   let url = `https://localhost:44348/api/dailycrypto/`;
 
   const [, fetchedCrypto] = useAxiosGet(url, []);
@@ -27,7 +27,11 @@ function TodayCoin({ openModal }) {
       {hasCurr && (
         <>
           <div className="todayCoin">
-            <CoinDetail crypto={dailyCrypto} openModal={openModal}></CoinDetail>
+            <CoinDetail
+              crypto={dailyCrypto}
+              openModal={openModal}
+              user={user}
+            ></CoinDetail>
           </div>
         </>
       )}

@@ -7,9 +7,17 @@ const FavoriteList = ({
   setIsFavorite,
   openModal,
   setSelectedCrypto,
+  user,
 }) => {
+  if (user === undefined) {
+    user =  {'id': "1"};
+  }
+
   let [favorites, setFavorites] = useState([]);
-  let [, storage] = useAxiosGet("https://localhost:44348/api/favorite", []);
+  let [, storage] = useAxiosGet(
+    `https://localhost:44348/api/favorite/${user.id}`,
+    []
+  );
 
   useEffect(() => {
     setFavorites(storage);
