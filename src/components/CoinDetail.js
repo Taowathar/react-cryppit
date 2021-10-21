@@ -12,13 +12,19 @@ const CoinDetail = ({ crypto, openModal, user }) => {
     user = { id: "1" };
   }
 
+  console.log(crypto)
+
   let cryptoData = null;
+  let cryptoDetails = null;
   let hasData = false;
   let dates = [];
   let prices = [];
 
   let dataUrl = `https://localhost:44348/api/cryptograph/${crypto.id}`;
+  let detailsUrl = `https://localhost:44348/api/cryptodetail/${crypto.id}`
 
+  const [, fetchedCryptoDetails] = useAxiosGet(detailsUrl, []);
+  console.log(cryptoDetails)
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
   const [favorite, setfavorite] = useState(false);
   let [, storage] = useAxiosGet(
@@ -26,12 +32,14 @@ const CoinDetail = ({ crypto, openModal, user }) => {
     []
   );
 
-  if (fetchedCryptoData) {
+  if (fetchedCryptoData && fetchedCryptoDetails) {
     cryptoData = fetchedCryptoData;
+    cryptoDetails = fetchedCryptoDetails;
   }
 
   if (cryptoData != null) {
     hasData = true;
+    console.log(cryptoDetails)
     for (let detail of cryptoData.prices) {
       dates.push(timeConverter(detail[0]));
       prices.push(detail[1]);
@@ -39,7 +47,6 @@ const CoinDetail = ({ crypto, openModal, user }) => {
   }
 
   useEffect(() => {
-    console.log("cryp");
     if (storage) {
       for (let cryp of storage) {
         if (cryp.id === crypto.id) {
@@ -99,7 +106,7 @@ const CoinDetail = ({ crypto, openModal, user }) => {
             <div style={{ marginTop: "-2rem" }}>
               <h2>
                 <img
-                  src={crypto.image}
+                  src={cryptoDetails.image.large}
                   alt="logo"
                   style={{
                     width: "40px",
@@ -107,20 +114,20 @@ const CoinDetail = ({ crypto, openModal, user }) => {
                     marginRight: "0.4rem",
                   }}
                 />
-                {crypto.name} ({crypto.symbol.toUpperCase()})
+                {crypto.name} ({cryptoDetails.symbol.toUpperCase()})
               </h2>
               <h4>
-                Current price: {crypto.current_price.toLocaleString()} USD
+                Current price: {cryptoDetails.market_data.current_price.usd.toLocaleString()} USD
               </h4>
-              <h4>Market cap: {crypto.market_cap.toLocaleString()} USD</h4>
-              <h4>24h Highest: {crypto.high_24h.toLocaleString()} USD</h4>
-              <h4>24h Lowest: {crypto.low_24h.toLocaleString()} USD</h4>
+              <h4>Market cap: {cryptoDetails.market_data.market_cap.usd.toLocaleString()} USD</h4>
+              <h4>24h Highest: {cryptoDetails.market_data.high_24h.usd.toLocaleString()} USD</h4>
+              <h4>24h Lowest: {cryptoDetails.market_data.low_24h.usd.toLocaleString()} USD</h4>
               <h4>
                 24h Price change:{" "}
-                {crypto.price_change_percentage_24h.toLocaleString()} %
+                {cryptoDetails.market_data.price_change_percentage_24h.toLocaleString()} %
               </h4>
-              <h4>All time high: {crypto.ath.toLocaleString()} USD</h4>
-              <h4>Total volume: {crypto.total_volume.toLocaleString()}</h4>
+              <h4>All time high: {cryptoDetails.market_data.ath.usd.toLocaleString()} USD</h4>
+              <h4>Total volume: {cryptoDetails.market_data.total_volume.usd.toLocaleString()}</h4>
             </div>
             <GraphDiv>
               <Line
