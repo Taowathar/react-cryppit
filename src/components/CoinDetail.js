@@ -57,11 +57,13 @@ const CoinDetail = ({ crypto, openModal, user }) => {
   }, [storage]);
 
   const changeFavorite = () => {
+
+    console.log(cryptoDetails)
     setfavorite(!favorite);
     if (favorite) {
-      axios.delete(`https://localhost:44348/api/favorite/${crypto.favoriteId}`);
+      axios.delete(`https://localhost:44348/api/favorite/${crypto.id}/${user.id}`);
     } else {
-      axios.post(`https://localhost:44348/api/favorite/${user.id}`, crypto);
+      axios.post(`https://localhost:44348/api/favorite/detail/${user.id}`, cryptoDetails);
     }
   };
 
@@ -114,7 +116,7 @@ const CoinDetail = ({ crypto, openModal, user }) => {
                     marginRight: "0.4rem",
                   }}
                 />
-                {crypto.name} ({cryptoDetails.symbol.toUpperCase()})
+                {cryptoDetails.name} ({cryptoDetails.symbol.toUpperCase()})
               </h2>
               <h4>
                 Current price: {cryptoDetails.market_data.current_price.usd.toLocaleString()} USD
@@ -124,7 +126,7 @@ const CoinDetail = ({ crypto, openModal, user }) => {
               <h4>24h Lowest: {cryptoDetails.market_data.low_24h.usd.toLocaleString()} USD</h4>
               <h4>
                 24h Price change:{" "}
-                {cryptoDetails.market_data.price_change_percentage_24h.toLocaleString()} %
+                {cryptoDetails.market_data.price_change_percentage_24h.toLocaleString()}%
               </h4>
               <h4>All time high: {cryptoDetails.market_data.ath.usd.toLocaleString()} USD</h4>
               <h4>Total volume: {cryptoDetails.market_data.total_volume.usd.toLocaleString()}</h4>

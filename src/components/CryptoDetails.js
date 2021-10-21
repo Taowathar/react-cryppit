@@ -40,11 +40,12 @@ const CryptoDetails = ({
   }, [storage]);
 
   const changeFavorite = () => {
+    console.log(selectedCrypto)
     setfavorite(!favorite);
     if (favorite) {
-      axios.delete(`https://localhost:44348/api/favorite/${crypto.favoriteId}`);
+      axios.delete(`https://localhost:44348/api/favorite/${crypto.id}/${user.id}`);
     } else {
-      axios.post(`https://localhost:44348/api/favorite/${user.id}`, crypto);
+      axios.post(`https://localhost:44348/api/favorite/${user.id}`, selectedCrypto);
     }
   };
 
