@@ -12,8 +12,6 @@ const CoinDetail = ({ crypto, openModal, user }) => {
     user = { id: "1" };
   }
 
-  console.log(crypto)
-
   let cryptoData = null;
   let cryptoDetails = null;
   let hasData = false;
@@ -24,7 +22,6 @@ const CoinDetail = ({ crypto, openModal, user }) => {
   let detailsUrl = `https://localhost:44348/api/cryptodetail/${crypto.id}`
 
   const [, fetchedCryptoDetails] = useAxiosGet(detailsUrl, []);
-  console.log(cryptoDetails)
   const [, fetchedCryptoData] = useAxiosGet(dataUrl, []);
   const [favorite, setfavorite] = useState(false);
   let [, storage] = useAxiosGet(
@@ -68,7 +65,7 @@ const CoinDetail = ({ crypto, openModal, user }) => {
   };
 
   function onClick() {
-    openModal(crypto);
+    openModal(cryptoDetails);
   }
 
   const state = {

@@ -109,11 +109,11 @@ const InvestModal = ({crypto, modalOpen, modalClose, user, loggedIn}) => {
         }
         setUsdAmount(inputValue);
         const decimalPlaces = 10;
-        setCryptoAmount(+(inputValue/crypto.current_price).toFixed(decimalPlaces))
+        setCryptoAmount(+(inputValue/(crypto.current_price ? crypto.current_price : crypto.market_data.current_price.usd)).toFixed(decimalPlaces))
     }
 
     function setCrypto(inputValue) {
-        const totalUsd = inputValue*crypto.current_price;
+        const totalUsd = inputValue*(crypto.current_price  ? crypto.current_price : crypto.market_data.current_price.usd);
         setOverBalance(totalUsd > balance);
         if(inputValue < 0){
             inputValue = 0;
