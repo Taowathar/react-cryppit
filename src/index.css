@@ -1,13 +1,225 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: khaki;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.page {
+  padding: 10px;
+  border: 1px solid green;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.active {
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.previous {
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 0px;
+  cursor: pointer;
+}
+
+.break {
+  padding: 10px;
+}
+
+.next {
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.pagination-field {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.crypto-img {
+  margin-left: 10px;
+  max-width: 25px;
+  padding-right: 15px;
+  top: 10px;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  margin-top: 15px;
+  width: 90%;
+  border-radius: 15px;
+}
+
+tr:nth-child(even) {
+  background-color: aliceblue;
+}
+
+tr:nth-child(odd) {
+  background-color: antiquewhite;
+}
+
+#table-head {
+  background-color: black;
+  color: white;
+}
+.table-column-favorite {
+  width: 40px;
+}
+
+.investButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table button {
+  margin-top: 4px;
+}
+
+.table-data-name {
+  display: flex;
+}
+
+.crypto-symbol {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.favoriteButton {
+  color: green;
+  cursor: pointer;
+}
+
+.currency-input {
+  position: relative;
+  display: inline-block;
+}
+
+.currency-input::after {
+  content: attr(currency);
+  font-size: 20px;
+  direction: rtl;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  border: 1px;
+  text-transform: uppercase;
+  transform: translateY(-60%);
+}
+
+ul {
+  padding-inline-start: 0px;
+}
+
+ul.pagination-field {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.detail-link {
+  text-decoration: none;
+  color:black;
+}
+
+.details-container {
+  width: 80%;
+  margin-top: 100px;
+  border: 5px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: azure;
+}
+
+.details-container button {
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.details-container.favoriteButton {
+  width: 50px;
+}
+
+.Balance {
+  display: contents;
+}
+
+.Balance h1 {
+  position: absolute;
+  right: 0%;
+  margin-right: 20px;
+}
+
+.Balance h1.nb-user-name {
+  position: absolute;
+  font-size: 1em;
+  right: 15%;
+  margin-top: 25px;
+}
+
+.register-container {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+
+.register-container h1 {
+  font-size: 3em;
+}
+
+.register-form {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-form div {
+  text-align: left;
+  margin: 50px;
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.register-form input {
+  font-size: 30px;
+  min-width: 80%;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.register-form button {
+  font-size: 30px;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  border-radius: 15px;
 }
